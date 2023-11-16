@@ -18,8 +18,8 @@
                 <ul>
                     <li class="active"><a href="#">Home</a></li>
                     <li><a href="list.php">Comics</a></li>
-                    <li><a href="insert.php">Cart</a></li>
-                    <li><a href="insert.php">Login</a></li>
+                    <li><a href="pages/cart.php">Cart</a></li>
+                    <li><a href="pages/login.php">Login</a></li>
                 </ul>
             </div>
         </nav>
@@ -28,7 +28,7 @@
         </div>
         <footer>
             <div class="container">
-                 ~Developed by Duel Ninja - Comics Group
+                @ Developed by Duel Ninja - Comics Group - 2023
             </div>
         </footer>
     </body>

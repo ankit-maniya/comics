@@ -11,7 +11,7 @@ header {
   padding: 10px 0;
   font-size: 2rem;
   text-align: center;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif
 }
 nav {
   background-color: #444;
@@ -22,6 +22,13 @@ nav {
   margin: 20px auto;
   padding: 0 20px;
 }
+
+.container h2 {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 3em;
+}
+
 nav ul {
   list-style-type: none;
   text-align: center;
@@ -64,4 +71,55 @@ footer {
   border: none;
   padding: 0.5rem;
   border-radius: 0.5rem;
+}
+
+/* Login */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+form {
+  text-align: center;
+}
+form label {
+  display: block;
+  margin-bottom: 5px;
+}
+form input[type="text"],
+form input[type="password"],
+form input[type="submit"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+form input[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+form input[type="submit"]:hover {
+  background-color: #444;
+}
+
+
+/*cart*/
+
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #333; 
+  color: #fff;
+  border: 1px solid #333
+}
+
+.btn:hover {
+  background-color: #333; 
+}
+
+
+.container a {
+  margin-right: 10px; 
 }
