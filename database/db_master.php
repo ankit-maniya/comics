@@ -7,6 +7,8 @@ class DBMaster
     const DATABASE_NAME = "db_comics";
     const DATABASE_CHARSET = "utf8mb4";
 
+    static protected $connectDB = null;
+
     function initDatabase()
     {
         try {
@@ -141,10 +143,10 @@ class DBMaster
             `comic_id` mediumint(8) unsigned,
             `order_item_quantity` INT DEFAULT 0,
             `order_item_amount` DECIMAL(10,2) DEFAULT 0.0,
-            `order_created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            `order_item_created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`order_item_id`),
-            FOREIGN KEY (`order_id`) REFERENCES tbl_users(`order_id`),
-            FOREIGN KEY (`comic_id`) REFERENCES tbl_users(`comic_id`)
+            FOREIGN KEY (`order_id`) REFERENCES tbl_orders(`order_id`),
+            FOREIGN KEY (`comic_id`) REFERENCES tbl_comics(`comic_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
     }
 
@@ -154,6 +156,18 @@ class DBMaster
 
         if ($sql_statement) {
             $sql_statement->execute();
+        }
+    }
+
+    function __construct()
+    {
+        if (self::$connectDB == null) {
+            try {
+                self::$connectDB =  new PDO("mysql:host=" . self::DATABASE_HOST . "; dbname=" . self::DATABASE_NAME . ";charset=" . self::DATABASE_CHARSET, self::DATABASE_USER, self::DATABASE_PASSWORD);
+                self::$connectDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                echo "Connection failed: " . $e->getMessage();
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ header {
   padding: 10px 0;
   font-size: 2rem;
   text-align: center;
-  font-family: Verdana, Geneva, Tahoma, sans-serif
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 nav {
   background-color: #444;
@@ -51,4 +51,17 @@ footer {
   color: #fff;
   text-align: center;
   padding: 1px 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.init-button {
+  background-color: red;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 }
