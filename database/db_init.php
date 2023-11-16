@@ -1,4 +1,6 @@
+
 <?php
+// Ankit Maniya
 $msg = null;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -38,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <footer>
         <div class="container">
-            @ Developed by Duel Ninja - Comics Group - 2023
+            Developed by Duel Ninja - Comics Group - 2023
         </div>
     </footer>
 </body>

@@ -1,4 +1,5 @@
 <?php
+// Ankit Maniya
 class DBMaster
 {
     const DATABASE_USER = "root";
@@ -8,7 +9,9 @@ class DBMaster
     const DATABASE_CHARSET = "utf8mb4";
 
     static protected $connectDB = null;
-
+    protected $sqlStatement="";
+    protected $params=null;
+    protected $stmt=null;
     function initDatabase()
     {
         try {
@@ -158,7 +161,7 @@ class DBMaster
             $sql_statement->execute();
         }
     }
-
+    
     function __construct()
     {
         if (self::$connectDB == null) {
@@ -169,5 +172,39 @@ class DBMaster
                 echo "Connection failed: " . $e->getMessage();
             }
         }
+    }
+    // Pratik Boghani----------
+    function getConnection(){
+        return self::$connectDB;
+    }
+    function getRowCount(){
+        return $this->stmt->rowCount();
+    }
+    function reset(){
+        $this->sqlStatement="";
+        $this->params=null;
+        $this->stmt=null;
+    }
+    function sqlStatement($sqlStatement){
+        $this->reset();
+        $this->sqlStatement=$sqlStatement;
+        return $this;
+    }
+    function params($params){
+        $this->params=$params;
+        return $this;
+    }
+    function execute($sqlStatement=""){
+        if(!empty($sqlStatement)){
+            $this->sqlStatement=$sqlStatement;
+        }
+        if(is_array($this->params)){
+            $this->stmt=self::$connectDB->prepare($this->sqlStatement);
+            $this->stmt->execute($this->params);
+            
+        }else{
+            $this->stmt=self::$connectDB->query($this->sqlStatement);
+        }
+        return $this;
     }
 }

@@ -14,7 +14,7 @@
             <div class="container">
                 <ul>
                     <li><a href="../index.php">Home</a></li>
-                    <li><a href="list.php">Comics</a></li>
+                    <li><a href="comics.php">Comics</a></li>
                     <li  class="active"><a href="#">Cart</a></li>
                     <li><a href="login.php">Login</a></li>
                 </ul>
@@ -34,7 +34,7 @@
 
     <footer>
             <div class="container">
-                @ Developed by Duel Ninja - Comics Group - 2023
+                Developed by Duel Ninja - Comics Group - 2023
             </div>
     </footer>
 </body>
