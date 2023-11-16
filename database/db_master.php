@@ -77,6 +77,16 @@ class DBMaster
             `user_updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`user_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+
+        self::insertAdminUser($pdo);
+    }
+
+    function insertAdminUser($pdo)
+    {
+        $hash = password_hash("2023@admin", PASSWORD_DEFAULT);
+        $pdo->query("insert into tbl_users (user_firstname,user_type,user_username,user_password,user_email,user_mobile, user_address, user_pincode, user_province)
+                             values
+                             ('admin','admin','admin@2023','$hash', 'admin@admin.com','2268832602', '308 King Street', 'N2J 0G4', 'ON')");
     }
 
     function generateGenereTable($pdo)
