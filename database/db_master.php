@@ -20,11 +20,20 @@ class DBMaster
             // generate User table
             self::generateUserTable($pdo);
 
-            // generate Genere table
+            // generate Genres table
             self::generateGenereTable($pdo);
 
             // generate Comics table
             self::generateComicsTable($pdo);
+
+            // generate Carts table
+            self::generateCartsTable($pdo);
+
+            // generate Orders table
+            self::generateOrdersTable($pdo);
+
+            // generate Order Items table
+            self::generateOrderItemsTable($pdo);
         } catch (ErrorException $msg) {
             echo "Initialization for database is failed :: " . $msg->getMessage();
         }
@@ -52,16 +61,18 @@ class DBMaster
     {
         $pdo->query("CREATE TABLE `tbl_users` (
             `user_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-            `user_firstname` varchar(100) NOT NULL,
-            `user_lastname` varchar(100) DEFAULT '',
-            `user_username` varchar(100) NOT NULL,
-            `user_password` varchar(255) NOT NULL,
-            `user_email` varchar(100) NOT NULL,
-            `user_mobile` varchar(15) NOT NULL,
-            `user_address` varchar(200) NOT NULL,
-            `user_pincode` varchar(7) NOT NULL,
-            `user_province` varchar(2) NOT NULL,
+            `user_firstname` VARCHAR(100) NOT NULL,
+            `user_lastname` VARCHAR(100) DEFAULT '',
+            `user_type` VARCHAR(100) DEFAULT 'customer',
+            `user_username` VARCHAR(100) NOT NULL,
+            `user_password` VARCHAR(255) NOT NULL,
+            `user_email` VARCHAR(100) NOT NULL,
+            `user_mobile` VARCHAR(15) NOT NULL,
+            `user_address` VARCHAR(200) NOT NULL,
+            `user_pincode` VARCHAR(7) NOT NULL,
+            `user_province` VARCHAR(2) NOT NULL,
             `user_created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            `user_updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`user_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
     }
@@ -70,7 +81,7 @@ class DBMaster
     {
         $pdo->query("CREATE TABLE `tbl_genres` (
             `genre_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-            `genre_name` varchar(100) NOT NULL,
+            `genre_name` VARCHAR(100) NOT NULL,
             `genre_created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`genre_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
@@ -80,17 +91,60 @@ class DBMaster
     {
         $pdo->query("CREATE TABLE `tbl_comics` (
             `comic_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-            `comic_title` varchar(100) NOT NULL,
+            `comic_title` VARCHAR(100) NOT NULL,
             `comic_price` decimal(10,2) NOT NULL,
             `comic_description` TEXT NOT NULL,
             `comic_stock_quantity` INT DEFAULT 0,
             `genre_id` mediumint(8) unsigned,
-            `comic_author` varchar(100) DEFAULT '',
-            `comic_author_name` varchar(100) NOT NULL,
-            `comic_author_email` varchar(100) NOT NULL,
+            `comic_author` VARCHAR(100) DEFAULT '',
+            `comic_author_name` VARCHAR(100) NOT NULL,
+            `comic_author_email` VARCHAR(100) NOT NULL,
             `comic_created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            `comic_updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`comic_id`),
             FOREIGN KEY (`genre_id`) REFERENCES tbl_genres(`genre_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+    }
+
+    function generateCartsTable($pdo)
+    {
+        $pdo->query("CREATE TABLE `tbl_carts` (
+            `cart_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+            `user_id` mediumint(8) unsigned,
+            `comic_id` mediumint(8) unsigned,
+            `cart_quantity` INT DEFAULT 0,
+            `cart_created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            `cart_updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`cart_id`),
+            FOREIGN KEY (`user_id`) REFERENCES tbl_users(`user_id`),
+            FOREIGN KEY (`comic_id`) REFERENCES tbl_comics(`comic_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+    }
+
+    function generateOrdersTable($pdo)
+    {
+        $pdo->query("CREATE TABLE `tbl_orders` (
+            `order_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+            `user_id` mediumint(8) unsigned,
+            `order_amount` DECIMAL(10,2) DEFAULT 0.0,
+            `order_created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`order_id`),
+            FOREIGN KEY (`user_id`) REFERENCES tbl_users(`user_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+    }
+
+    function generateOrderItemsTable($pdo)
+    {
+        $pdo->query("CREATE TABLE `tbl_order_items` (
+            `order_item_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+            `order_id` mediumint(8) unsigned,
+            `comic_id` mediumint(8) unsigned,
+            `order_item_quantity` INT DEFAULT 0,
+            `order_item_amount` DECIMAL(10,2) DEFAULT 0.0,
+            `order_created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`order_item_id`),
+            FOREIGN KEY (`order_id`) REFERENCES tbl_users(`order_id`),
+            FOREIGN KEY (`comic_id`) REFERENCES tbl_users(`comic_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
     }
 
