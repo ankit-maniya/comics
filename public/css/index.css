@@ -12,7 +12,7 @@ header {
   padding: 10px 0;
   font-size: 2rem;
   text-align: center;
-  font-family: Verdana, Geneva, Tahoma, sans-serif
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 nav {
   background-color: #444;
@@ -103,7 +103,6 @@ form input[type="submit"]:hover {
   background-color: #444;
 }
 
-
 /*cart*/
 
 .btn {
@@ -111,16 +110,15 @@ form input[type="submit"]:hover {
   padding: 8px 16px;
   text-align: center;
   text-decoration: none;
-  background-color: #333; 
+  background-color: #333;
   color: #fff;
-  border: 1px solid #333
+  border: 1px solid #333;
 }
 
 .btn:hover {
-  background-color: #333; 
+  background-color: #333;
 }
 
-
 .container a {
-  margin-right: 10px; 
+  margin-right: 10px;
 }
