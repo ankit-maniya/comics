@@ -1,28 +1,3 @@
-<!-- Pratik Boghani -->
-<?php
-require('../dal/user.php');
-$user = new User(array_merge(
-    [
-        "user_name" => "",
-        "user_email" => "",
-        "user_type" => "",
-        "user_password" => "",
-    ],
-    $_POST
-));
-
-if (count($user->getErrors()) > 0) {
-    foreach ($user->getErrors() as $error) {
-        echo $error;
-    }
-
-    echo '<br><a href="login.php">Go Back</a>';
-} else {
-    $user->insert();
-    header("Location: comics.php");
-}
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -52,7 +27,28 @@ include_once './components/header.php';
             <input type="submit" value="Login">
         </form>
 
-
+        <?php
+        // Check if the form is submitted
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // For login form
+            if (isset($_POST['login_username']) && isset($_POST['login_password'])) {
+                $username = $_POST['login_username'];
+                $password = $_POST['login_password'];
+                
+                // Validate username and password
+                if (empty($username)) {
+                    echo "Username is required.<br>";
+                }
+                if (empty($password)) {
+                    echo "Password is required.<br>";
+                }
+                if (!empty($username) && !empty($password)) {
+                    // Process the login
+                    // Example: Check the username and password against a database
+                }
+            }
+        }
+        ?>
 
         <!-- Sign Up form -->
         <h1>Sign Up</h1>
@@ -64,13 +60,11 @@ include_once './components/header.php';
             <input type="text" id="user_email" name="user_email"><br><br>
 
             <label for="user_type">Type:</label>
-            <!-- <input type="text" id="user_type" name="user_type"><br><br> -->
             <select id='user_type' name='user_type'>
                 <?php
                 $user_types = ["Admin", "Customer"];
                 foreach ($user_types as $type) {
                     echo "<option value='$type'>$type</option>";
-                    echo "<li><a class='dropdown-item' href='#'>Action</a></li>";
                 }
                 ?>
             </select>
@@ -80,6 +74,37 @@ include_once './components/header.php';
 
             <input type="submit" value="Sign Up">
         </form>
+
+        <?php
+        // Check if the form is submitted
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // For sign-up form
+            if (isset($_POST['user_name']) && isset($_POST['user_email']) && isset($_POST['user_type']) && isset($_POST['user_password'])) {
+                $username = $_POST['user_name'];
+                $email = $_POST['user_email'];
+                $userType = $_POST['user_type'];
+                $password = $_POST['user_password'];
+                
+                // Validate input data
+                if (empty($username)) {
+                    echo "Username is required.<br>";
+                }
+                if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    echo "Valid email is required.<br>";
+                }
+                if (empty($userType) || !in_array($userType, ["Admin", "Customer"])) {
+                    echo "Valid user type is required.<br>";
+                }
+                if (empty($password)) {
+                    echo "Password is required.<br>";
+                }
+                if (!empty($username) && !empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($userType) && in_array($userType, ["Admin", "Customer"]) && !empty($password)) {
+                    // Process the sign-up
+                    // Example: Insert the new user into a database
+                }
+            }
+        }
+        ?>
     </div>
 
     <?php
