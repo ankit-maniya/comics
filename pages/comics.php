@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <?php
+require_once('../configs/Path.php');
 include_once './components/header.php';
 ?>
 
 <body>
     <header>
-        Comics
+        Comics Store - Comics
     </header>
 
     <?php
