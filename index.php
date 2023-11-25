@@ -1,14 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comics - Home</title>
-</head>
+<?php
+require_once('./configs/Path.php');
+include_once './pages/components/header.php';
+
+?>
 
 <body>
-    Home Page
+    <header>
+        Comics Store - Home Page
+    </header>
+    <?php
+    include_once './pages/components/navbar.php';
+    ?>
+    <div class="container">
+        <h2>Welcome to Comics Store</h2>
+    </div>
+    <?php
+    include_once './pages/components/footer.php';
+    ?>
+
 </body>
 
-</html>l
+</html>
