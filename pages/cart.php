@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <?php
+<<<<<<< HEAD
 require_once('../database/db_master.php');
 require_once('../configs/Path.php');
 include_once './components/header.php';
@@ -12,6 +13,10 @@ $cartItems = [
 ];
 
 $totalAmount = 0;
+=======
+require_once('../configs/Path.php');
+include_once './components/header.php';
+>>>>>>> 617a43a1458258c4ca87c7b9bb8a1ecc435c7a69
 ?>
 
 <body>
@@ -24,6 +29,7 @@ $totalAmount = 0;
     include_once './components/navbar.php';
     ?>
 
+<<<<<<< HEAD
 <div class="container">
         <!-- Display items in the cart -->
         <h2>Items in Your Cart</h2>
@@ -50,6 +56,15 @@ $totalAmount = 0;
         <a href="checkout.php" class="btn btn-primary">Go To Checkout</a>
         <a href="comics.php" class="btn btn-primary">Continue Shopping</a>
     </div>
+=======
+    <div class="container">
+
+        <br/><br/>
+        <a href="checkout.php" class="btn btn-primary">Go To Checkout</a>
+        <a href="books.php" class="btn btn-primary">Continue Shopping</a>
+    </div>
+
+>>>>>>> 617a43a1458258c4ca87c7b9bb8a1ecc435c7a69
     <?php
     include_once './components/footer.php';
     ?>

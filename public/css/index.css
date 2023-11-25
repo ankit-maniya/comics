@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 * {
   margin: 0;
   padding: 0;
@@ -189,3 +190,129 @@ form input[type="submit"] {
 form input[type="submit"]:hover {
   background-color: #444;
 }
+=======
+/* Pratik Boghani */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0;
+  font-size: 2rem;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+nav {
+  background-color: #444;
+  padding: 0.5rem 0;
+}
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+.container h2 {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 3em;
+}
+
+nav ul {
+  list-style-type: none;
+  text-align: center;
+}
+nav ul li {
+  display: inline;
+  margin: 0 15px;
+  padding: 15px 15px;
+}
+.active {
+  background-color: #333;
+  font-weight: bold;
+}
+nav ul li:hover {
+  background-color: #333;
+}
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1px 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.init-button {
+  background-color: red;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+/* Login */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+form {
+  text-align: center;
+}
+form label {
+  display: block;
+  margin-bottom: 5px;
+}
+form input[type="text"],
+form input[type="password"],
+form input[type="submit"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+form input[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+form input[type="submit"]:hover {
+  background-color: #444;
+}
+
+/*cart*/
+
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+.btn:hover {
+  background-color: #333;
+}
+
+.container a {
+  margin-right: 10px;
+}
+>>>>>>> 617a43a1458258c4ca87c7b9bb8a1ecc435c7a69
