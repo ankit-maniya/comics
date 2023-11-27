@@ -123,13 +123,8 @@ class DBMaster
             FOREIGN KEY (`user_id`) REFERENCES tbl_users(`user_id`),
             FOREIGN KEY (`comic_id`) REFERENCES tbl_comics(`comic_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
-<<<<<<< HEAD
-        
     }
     
-=======
-    }
->>>>>>> 617a43a1458258c4ca87c7b9bb8a1ecc435c7a69
 
     function generateOrdersTable($pdo)
     {
