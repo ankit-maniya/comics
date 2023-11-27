@@ -1,6 +1,6 @@
 <!-- Pratik Boghani -->
 <?php
-require_once('./db_master.php');
+require_once(__DIR__  . '/db_master.php');
 class User
 {
     protected $user_id;

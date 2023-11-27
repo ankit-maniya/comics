@@ -9,9 +9,9 @@ class DBMaster
     const DATABASE_CHARSET = "utf8mb4";
 
     static protected $connectDB = null;
-    protected $sqlStatement="";
-    protected $params=null;
-    protected $stmt=null;
+    protected $sqlStatement = "";
+    protected $params = null;
+    protected $stmt = null;
     function initDatabase()
     {
         try {
@@ -101,7 +101,6 @@ class DBMaster
             `comic_description` TEXT NOT NULL,
             `comic_stock_quantity` INT DEFAULT 0,
             `genre_id` mediumint(8) unsigned,
-            `comic_author` VARCHAR(100) DEFAULT '',
             `comic_author_name` VARCHAR(100) NOT NULL,
             `comic_author_email` VARCHAR(100) NOT NULL,
             `comic_created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -161,7 +160,7 @@ class DBMaster
             $sql_statement->execute();
         }
     }
-    
+
     function __construct()
     {
         if (self::$connectDB == null) {
@@ -174,37 +173,57 @@ class DBMaster
         }
     }
     // Pratik Boghani----------
-    function getConnection(){
+    function getConnection()
+    {
         return self::$connectDB;
     }
-    function getRowCount(){
+    function getRowCount()
+    {
         return $this->stmt->rowCount();
     }
-    function reset(){
-        $this->sqlStatement="";
-        $this->params=null;
-        $this->stmt=null;
+    function reset()
+    {
+        $this->sqlStatement = "";
+        $this->params = null;
+        $this->stmt = null;
     }
-    function sqlStatement($sqlStatement){
+    function sqlStatement($sqlStatement)
+    {
         $this->reset();
-        $this->sqlStatement=$sqlStatement;
+        $this->sqlStatement = $sqlStatement;
         return $this;
     }
-    function params($params){
-        $this->params=$params;
+    function params($params)
+    {
+        $this->params = $params;
         return $this;
     }
-    function execute($sqlStatement=""){
-        if(!empty($sqlStatement)){
-            $this->sqlStatement=$sqlStatement;
+    function execute($sqlStatement = "")
+    {
+        if (!empty($sqlStatement)) {
+            $this->sqlStatement = $sqlStatement;
         }
-        if(is_array($this->params)){
-            $this->stmt=self::$connectDB->prepare($this->sqlStatement);
+        if (is_array($this->params)) {
+            $this->stmt = self::$connectDB->prepare($this->sqlStatement);
             $this->stmt->execute($this->params);
-            
-        }else{
-            $this->stmt=self::$connectDB->query($this->sqlStatement);
+        } else {
+            $this->stmt = self::$connectDB->query($this->sqlStatement);
         }
         return $this;
+    }
+    // Ankit Maniya
+    function forEach(callable $callback, $userDefinedData = null)
+    {
+        $index = 0;
+        while ($row = $this->stmt->fetch()) {
+            $callback($index, $row, $userDefinedData);
+            $index++;
+        }
+    }
+    function forOne(callable $callback, $userDefinedData = null)
+    {
+        if ($row = $this->stmt->fetch()) {
+            $callback($row, $userDefinedData);
+        }
     }
 }

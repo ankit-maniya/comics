@@ -15,7 +15,7 @@ include_once './components/header.php';
     include_once './components/navbar.php';
     ?>
 
-    <div class="container">
+    <div class="my-container">
         <h2>Welcome to Comics</h2>
     </div>
 

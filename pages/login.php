@@ -15,7 +15,7 @@ include_once './components/header.php';
     include_once './components/navbar.php';
     ?>
 
-    <div class="container mb-5">
+    <div class="my-container mb-5">
         <!-- Login form -->
         <h1>Login</h1>
         <form method="post" action="login.php">

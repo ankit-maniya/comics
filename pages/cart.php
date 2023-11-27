@@ -15,7 +15,7 @@ include_once './components/header.php';
     include_once './components/navbar.php';
     ?>
 
-    <div class="container">
+    <div class="my-container">
 
         <br/><br/>
         <a href="checkout.php" class="btn btn-primary">Go To Checkout</a>

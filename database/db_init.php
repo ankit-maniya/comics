@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <header>
         Initialize Database
     </header>
-    <div class="container text-center">
+    <div class="my-container text-center">
         <?php
 
         if ($msg) {
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
     <footer>
-        <div class="container">
+        <div class="my-container">
             Developed by Duel Ninja - Comics Group - 2023
         </div>
     </footer>
