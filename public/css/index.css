@@ -120,3 +120,35 @@ form input[type="submit"]:hover {
 .my-container a {
   margin-right: 10px;
 }
+
+/*Checkout*/
+
+/* Checkout Summary Styles */
+.container h2 {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 3em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+table th {
+  background-color: #f2f2f2;
+}
+
+table td {
+  text-align: center;
+}
+
+table td strong {
+  font-weight: bold;
+}
