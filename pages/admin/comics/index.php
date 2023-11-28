@@ -21,36 +21,38 @@ require('../../../database/db_comics.php');
     $activeTab = "admin-all-comics";
     include_once '../../components/navbar.php';
     ?>
-    <div class="table-responsive mb-5">
-        <table class="table align-middle">
-            <thead class="table-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col" class="text-center">Title</th>
-                    <th scope="col" class="text-center">Price</th>
-                    <th scope="col" class="text-center">Image</th>
-                    <th scope="col" class="text-center">Description</th>
-                    <th scope="col" class="text-center">Stock Quantity</th>
-                    <th scope="col" class="text-center">Genere</th>
-                    <th scope="col" class="text-center">Author Name</th>
-                    <th scope="col" class="text-center">Author Email</th>
-                    <th scope="col" class="text-center">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
-                <?php
-                $sql = new DBMaster();
-                $serial_no = 0;
-                $sql->execute("select * from tbl_genres JOIN tbl_comics ON tbl_genres.genre_id = tbl_comics.genre_id")->forEach(function ($serial_no, $row) {
-                    $serial_no++;
-                    $img = $row['comic_image'];
-                    if ($img) {
-                        $img = Path::getDomainUri() . "public/uploads/" . $img;
-                    } else {
-                        $img = Path::getDomainUri() . "public/images/dummy_400_400.png";
-                    }
+    <div class="container">
+        <a class='btn btn-primary my-2' href='add_comics.php' role='button'>Add Comics</a>
+        <div class="table-responsive mb-5">
+            <table class="table align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" class="text-center">Title</th>
+                        <th scope="col" class="text-center">Price</th>
+                        <th scope="col" class="text-center">Image</th>
+                        <th scope="col" class="text-center">Description</th>
+                        <th scope="col" class="text-center">Stock Quantity</th>
+                        <th scope="col" class="text-center">Genere</th>
+                        <th scope="col" class="text-center">Author Name</th>
+                        <th scope="col" class="text-center">Author Email</th>
+                        <th scope="col" class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <?php
+                    $sql = new DBMaster();
+                    $serial_no = 0;
+                    $sql->execute("select * from tbl_genres JOIN tbl_comics ON tbl_genres.genre_id = tbl_comics.genre_id")->forEach(function ($serial_no, $row) {
+                        $serial_no++;
+                        $img = $row['comic_image'];
+                        if ($img) {
+                            $img = Path::getDomainUri() . "public/uploads/" . $img;
+                        } else {
+                            $img = Path::getDomainUri() . "public/images/dummy_400_400.png";
+                        }
 
-                    echo "
+                        echo "
                     <tr>
                         <th scope='row'>{$serial_no}</th>
                         <td>{$row['comic_title']}</td>
@@ -66,11 +68,13 @@ require('../../../database/db_comics.php');
                             <a class='btn btn-danger' href='#' role='button'>Delete</a>
                         </td>
                     </tr>";
-                });
-                ?>
-            </tbody>
-        </table>
+                    });
+                    ?>
+                </tbody>
+            </table>
+        </div>
     </div>
+
     <?php
     include_once '../../components/footer.php';
     ?>

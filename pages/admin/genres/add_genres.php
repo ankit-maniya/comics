@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </header>
 
     <?php
-    $activeTab = "admin-add-genres";
+    $activeTab = "admin-all-genres";
     include_once '../../components/navbar.php';
     ?>
 
