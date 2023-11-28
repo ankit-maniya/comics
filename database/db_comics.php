@@ -176,6 +176,25 @@ class Comic
         return $sql->getRowCount();
     }
 
+    function update()
+    {
+        $sql = new DBMaster();
+        $sql->sqlStatement("update tbl_comics set comic_title = :comic_title, comic_price = :comic_price, comic_image = :comic_image, comic_description = :comic_description, comic_stock_quantity = :comic_stock_quantity, genre_id = :genre_id, comic_author_name = :comic_author_name, comic_author_email = :comic_author_email  where comic_id =:comic_id")
+            ->params([
+                "comic_id" => $this->comic_id,
+                "comic_title" => $this->comic_title,
+                "comic_price" => $this->comic_price,
+                "comic_image" => $this->comic_image,
+                "comic_description" => $this->comic_description,
+                "comic_stock_quantity" => $this->comic_stock_quantity,
+                "genre_id" => $this->genre_id,
+                "comic_author_name" => $this->comic_author_name,
+                "comic_author_email" => $this->comic_author_email,
+            ])
+            ->execute();
+        return $sql->getRowCount();
+    }
+
     function delete()
     {
         $sql = new DBMaster();
@@ -185,5 +204,26 @@ class Comic
             ])
             ->execute();
         return $sql->getRowCount();
+    }
+
+    function find($comic_id)
+    {
+        if (filter_var($comic_id, FILTER_VALIDATE_INT)) {
+            $sql = new DBMaster();
+            $sql->sqlStatement("select * from tbl_comics where comic_id=:comic_id")
+                ->params(["comic_id" => $comic_id])
+                ->execute()
+                ->forOne(function ($row, $userDefinedData) {
+                    $userDefinedData->setComicId($row['comic_id']);
+                    $userDefinedData->setComicTitle($row['comic_title']);
+                    $userDefinedData->setComicPrice($row['comic_price']);
+                    $userDefinedData->setComicImage($row['comic_image']);
+                    $userDefinedData->setComicDescription($row['comic_description']);
+                    $userDefinedData->setComicStockQuantity($row['comic_stock_quantity']);
+                    $userDefinedData->setGenreId($row['genre_id']);
+                    $userDefinedData->setComicAuthorName($row['comic_author_name']);
+                    $userDefinedData->setComicAuthorEmail($row['comic_author_email']);
+                }, $this);
+        }
     }
 }

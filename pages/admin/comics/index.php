@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                         <td>{$row['comic_author_name']}</td>
                         <td>{$row['comic_author_email']}</td>
                         <td>
-                            <a class='btn btn-warning' href='#' role='button'>Edit</a>
+                            <a class='btn btn-warning' href='add_comics.php?comic_id={$row['comic_id']}' role='button'>Edit</a>
                             <a class='btn btn-danger' href='?comic_id={$row['comic_id']}&&comic_image={$row['comic_image']}' role='button'>Delete</a>
                         </td>
                     </tr>";

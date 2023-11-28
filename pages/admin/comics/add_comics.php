@@ -12,6 +12,7 @@ include_once '../../components/header.php';
 
 require('../../../database/db_comics.php');
 
+$isUpdate = false;
 $errors;
 $inputs = [
     "comic_title" => "",
@@ -60,12 +61,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: add_comics.php");
         }
     }
+
+    if (array_key_exists('update_comics_submit', $_POST)) {
+
+        $comic = new Comic(array_merge([
+            "comic_id" => ""
+        ], $_POST));
+
+        if (count($comic->getErrors()) == 0) {
+
+            $comic->update();
+            header("Location: index.php");
+        } else {
+            $errors = $comic->getErrors();
+        }
+    }
+}
+
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if (array_key_exists('comic_id', $_GET)) {
+        $isUpdate = true;
+
+        $comic = new Comic();
+        $comic->find($_GET['comic_id']);
+
+        if ($comic->getComicId() > 0) {
+            $inputs = array_merge($inputs, [
+                "comic_title" => $comic->getComicTitle(),
+                "comic_price" => $comic->getComicPrice(),
+                "comic_image" => $comic->getComicImage(),
+                "comic_description" => $comic->getComicDescription(),
+                "comic_stock_quantity" => $comic->getComicStockQuantity(),
+                "genre_id" => $comic->getGenreId(),
+                "comic_author_name" => $comic->getComicAuthorName(),
+                "comic_author_email" => $comic->getComicAuthorEmail(),
+            ]);
+        }
+    }
 }
 ?>
 
 <body>
     <header>
-        Admin Add Comics
+        Admin
+        <?php
+        if ($isUpdate) {
+            echo "Update";
+        } else {
+            echo "Add";
+        }
+        ?>
+        Comics
     </header>
 
     <?php
@@ -75,13 +122,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="container my-5">
         <form id="add_comics" name="add_comics" method="post" action="add_comics.php" enctype="multipart/form-data">
+            <?php
+            if ($isUpdate) {
+            ?>
+                <input type="hidden" class="form-control" id="comic_id" name="comic_id" value='<?php echo isset($_GET['comic_id']) ? $_GET['comic_id'] : 0 ?>' />
+            <?php
+            }
+            ?>
             <div class="mb-3">
                 <label for="comic_title" class="form-label">Comic Title</label>
                 <input type="text" class="form-control" id="comic_title" name="comic_title" value='<?php echo isset($inputs["comic_title"]) ? $inputs["comic_title"] : "" ?>' />
                 <?php
                 if (isset($errors) && key_exists('comic_title', $errors)) {
                 ?>
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-danger" role="">
                         <?php echo $errors['comic_title'] ?>
                     </div>
                 <?php
@@ -96,10 +150,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <?php
                     $sql = new DBMaster();
                     $serial_no = 0;
-                    $sql->execute("select * from tbl_genres")->forEach(function ($serial_no, $row) {
+                    $selectedGenreId = isset($inputs["genre_id"]) ? $inputs["genre_id"] : null;
+                    $sql->execute("select * from tbl_genres")->forEach(function ($serial_no, $row) use ($selectedGenreId) {
                         $genreId = $row["genre_id"];
                         $genreName = $row["genre_name"];
-                        echo "<option value='$genreId'>$genreName</option>";
+                        $selectedStr = "";
+                        if ($genreId == $selectedGenreId) {
+                            $selectedStr = " selected";
+                        }
+                        echo "<option value='$genreId' $selectedStr>$genreName</option>";
                     });
                     ?>
                 </select>
@@ -131,6 +190,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="mb-3">
                 <label for="formFile" class="form-label">Comic Image</label>
                 <input class="form-control" type="file" id="comic_image" name="image">
+                <?php
+                $img = $inputs['comic_image'];
+                if ($img) {
+                    $img = Path::getDomainUri() . "public/uploads/" . $img;
+                } else {
+                    $img = Path::getDomainUri() . "public/images/dummy_400_400.png";
+                }
+                ?>
+                <img src='<?php echo $img ?>' class='img-thumbnail' width='250px' alt='comics'>
                 <?php
                 if (isset($errors) && key_exists('comic_image', $errors)) {
                 ?>
@@ -198,7 +266,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ?>
             </div>
 
-            <button type="submit" value="add_comics_submit" name="add_comics_submit" class="btn btn-primary">Submit</button>
+            <?php
+            if ($isUpdate) {
+            ?>
+                <button type="submit" value="update_comics_submit" name="update_comics_submit" class="btn btn-warning">Update</button>
+            <?php
+            } else {
+            ?>
+                <button type="submit" value="add_comics_submit" name="add_comics_submit" class="btn btn-primary">Submit</button>
+            <?php
+            }
+            ?>
         </form>
     </div>
 
