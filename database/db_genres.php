@@ -32,6 +32,14 @@ class Genre
         return $this->genre_id;
     }
 
+    function setGenreId($genre_id)
+    {
+        $this->genre_id = trim(htmlspecialchars($genre_id));
+        if (empty($this->genre_id)) {
+            $this->errors["genre_id"] = "Please Click at least 1 Genre.";
+        }
+    }
+
     function getComicTitle()
     {
         return $this->genre_name;
@@ -59,6 +67,7 @@ class Genre
 
     function __construct($properties = [])
     {
+        if (isset($properties["genre_id"])) $this->setGenreId($properties["genre_id"]);
         if (isset($properties["genre_name"])) $this->setComicTitle($properties["genre_name"]);
         if (isset($properties["genre_image"])) $this->setGenreImage($properties["genre_image"]);
     }
@@ -73,6 +82,17 @@ class Genre
             ])
             ->execute();
         $this->genre_id = $sql->getConnection()->lastInsertId();
+        return $sql->getRowCount();
+    }
+
+    function delete()
+    {
+        $sql = new DBMaster();
+        $sql->sqlStatement("delete from tbl_genres where genre_id =:genre_id")
+            ->params([
+                "genre_id" => $this->genre_id,
+            ])
+            ->execute();
         return $sql->getRowCount();
     }
 }

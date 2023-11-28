@@ -6,10 +6,36 @@
 <html>
 
 <?php
-include_once '../../../configs/Path.php';
-include_once '../../components/header.php';
+require_once('../../../configs/Path.php');
+require_once('../../../helpers/ImageHandler.php');
+require_once('../../components/header.php');
 
-require('../../../database/db_comics.php');
+require_once('../../../database/db_comics.php');
+
+$errors;
+$success;
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if (isset($_GET['comic_id']) && isset($_GET['comic_image'])) {
+        $comic = new Comic(array_merge([
+            "comic_id" => "",
+            "comic_image" => "",
+        ], $_GET));
+
+        if ($comic->hasError()) {
+            $errors = $comic->getErrors();
+        } else {
+            $record = $comic->delete();
+
+            if ($record > 0) {
+                ImageHandler::removeImage($_GET['comic_image']);
+                $success = "Comic Deleted Successfully!";
+            }
+
+            header("Location: index.php");
+        }
+    }
+}
 ?>
 
 <body>
@@ -22,6 +48,15 @@ require('../../../database/db_comics.php');
     include_once '../../components/navbar.php';
     ?>
     <div class="container">
+        <?php
+        if (isset($errors) && key_exists('genre_id', $errors)) {
+        ?>
+            <div class="alert alert-danger" role="alert">
+                <?php echo $errors['genre_id'] ?>
+            </div>
+        <?php
+        }
+        ?>
         <a class='btn btn-primary my-2' href='add_comics.php' role='button'>Add Comics</a>
         <div class="table-responsive mb-5">
             <table class="table align-middle">
@@ -65,7 +100,7 @@ require('../../../database/db_comics.php');
                         <td>{$row['comic_author_email']}</td>
                         <td>
                             <a class='btn btn-warning' href='#' role='button'>Edit</a>
-                            <a class='btn btn-danger' href='#' role='button'>Delete</a>
+                            <a class='btn btn-danger' href='?comic_id={$row['comic_id']}&&comic_image={$row['comic_image']}' role='button'>Delete</a>
                         </td>
                     </tr>";
                     });

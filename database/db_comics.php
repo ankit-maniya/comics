@@ -39,6 +39,14 @@ class Comic
         return $this->comic_id;
     }
 
+    function setComicId($comic_id)
+    {
+        $this->comic_id = trim(htmlspecialchars($comic_id));
+        if (empty($this->comic_id)) {
+            $this->errors["comic_id"] = "Please Click at least 1 comic";
+        }
+    }
+
     function getComicTitle()
     {
         return $this->comic_title;
@@ -138,6 +146,7 @@ class Comic
 
     function __construct($properties = [])
     {
+        if (isset($properties["comic_id"])) $this->setComicId($properties["comic_id"]);
         if (isset($properties["comic_title"])) $this->setComicTitle($properties["comic_title"]);
         if (isset($properties["comic_price"])) $this->setComicPrice($properties["comic_price"]);
         if (isset($properties["comic_image"])) $this->setComicImage($properties["comic_image"]);
@@ -164,6 +173,17 @@ class Comic
             ])
             ->execute();
         $this->comic_id = $sql->getConnection()->lastInsertId();
+        return $sql->getRowCount();
+    }
+
+    function delete()
+    {
+        $sql = new DBMaster();
+        $sql->sqlStatement("delete from tbl_comics where comic_id =:comic_id")
+            ->params([
+                "comic_id" => $this->comic_id,
+            ])
+            ->execute();
         return $sql->getRowCount();
     }
 }

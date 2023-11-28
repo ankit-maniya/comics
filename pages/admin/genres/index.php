@@ -10,6 +10,30 @@ include_once '../../../configs/Path.php';
 include_once '../../components/header.php';
 
 require('../../../database/db_genres.php');
+
+$errors;
+$success;
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if (isset($_GET['genre_id']) && isset($_GET['genre_image'])) {
+        $genre = new Genre(array_merge([
+            "genre_id" => "",
+            "genre_image" => "",
+        ], $_GET));
+
+        if ($genre->hasError()) {
+            $errors = $genre->getErrors();
+        } else {
+            $record = $genre->delete();
+
+            if ($record > 0) {
+                ImageHandler::removeImage($_GET['genre_image']);
+                $success = "Genre Deleted Successfully!";
+            }
+            header("Location: index.php");
+        }
+    }
+}
 ?>
 
 <body>
@@ -22,6 +46,15 @@ require('../../../database/db_genres.php');
     include_once '../../components/navbar.php';
     ?>
     <div class="container">
+        <?php
+        if (isset($errors) && key_exists('genre_id', $errors)) {
+        ?>
+            <div class="alert alert-danger" role="alert">
+                <?php echo $errors['genre_id'] ?>
+            </div>
+        <?php
+        }
+        ?>
         <a class='btn btn-primary my-2' href='add_genres.php' role='button'>Add Genre</a>
         <div class="table-responsive">
             <table class="table align-middle">
@@ -52,7 +85,7 @@ require('../../../database/db_genres.php');
                         <td><img src='{$img}' class='img-thumbnail' width='250px' alt='genres'></td>
                         <td>
                             <a class='btn btn-warning' href='#' role='button'>Edit</a>
-                            <a class='btn btn-danger' href='#' role='button'>Delete</a>
+                            <a class='btn btn-danger' href='?genre_id={$row['genre_id']}&&genre_image={$row['genre_image']}' role='button'>Delete</a>
                         </td>
                     </tr>";
                     });
