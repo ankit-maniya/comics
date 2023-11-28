@@ -87,6 +87,7 @@ class DBMaster
         $pdo->query("CREATE TABLE `tbl_genres` (
             `genre_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
             `genre_name` VARCHAR(100) NOT NULL,
+            `genre_image` VARCHAR(100) NOT NULL,
             `genre_created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`genre_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
@@ -98,7 +99,7 @@ class DBMaster
             `comic_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
             `comic_title` VARCHAR(100) NOT NULL,
             `comic_price` decimal(10,2) NOT NULL,
-            `comic_image` VARCHAR(100),
+            `comic_image` VARCHAR(100)  NOT NULL,
             `comic_description` TEXT NOT NULL,
             `comic_stock_quantity` INT DEFAULT 0,
             `genre_id` mediumint(8) unsigned,
@@ -125,7 +126,7 @@ class DBMaster
             FOREIGN KEY (`comic_id`) REFERENCES tbl_comics(`comic_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
     }
-    
+
 
     function generateOrdersTable($pdo)
     {

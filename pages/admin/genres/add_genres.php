@@ -7,6 +7,7 @@
 
 <?php
 include_once '../../../configs/Path.php';
+include_once '../../../helpers/ImageHandler.php';
 include_once '../../components/header.php';
 
 require('../../../database/db_genres.php');
@@ -19,12 +20,29 @@ $inputs = [
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (array_key_exists('add_genres_submit', $_POST)) {
         $inputs = array_merge($inputs, $_POST);
+
+        $uploadedFileName = "";
+        $hasImageError = false;
+
+        if ($_FILES["image"]["size"] !== 0) {
+            $result = ImageHandler::handleImageUploadToServer($_FILES["image"]);
+            if (strpos($result, "Error") === 0) {
+                $hasImageError = true;
+            } else {
+                $uploadedFileName = $result;
+            }
+        }
+
         $genre = new Genre(array_merge([
             "genre_name" => "",
+            "genre_image" => $uploadedFileName,
         ], $_POST));
 
         if ($genre->hasError()) {
             $errors = $genre->getErrors();
+            if ($hasImageError) {
+                $errors['genre_image'] = $result;
+            }
         } else {
             $genre->insert();
             $success = "Genre Added Successfully!";
@@ -45,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ?>
 
     <div class="container my-5">
-        <form id="add_genre" name="add_genre" method="post" action="add_genres.php">
+        <form id="add_genre" name="add_genre" method="post" action="add_genres.php" enctype="multipart/form-data">
             <?php
             if (isset($success)) {
             ?>
@@ -63,6 +81,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ?>
                     <div class="alert alert-danger" role="alert">
                         <?php echo $errors['genre_name'] ?>
+                    </div>
+                <?php
+                }
+                ?>
+            </div>
+
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Genre Image</label>
+                <input class="form-control" type="file" id="genre_image" name="image">
+                <?php
+                if (isset($errors) && key_exists('genre_image', $errors)) {
+                ?>
+                    <div class="alert alert-danger mt-1" role="alert">
+                        <?php echo $errors['genre_image'] ?>
                     </div>
                 <?php
                 }

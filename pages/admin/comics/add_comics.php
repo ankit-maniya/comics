@@ -39,8 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
-
-
         $comic = new Comic(array_merge([
             "comic_title" => "",
             "comic_price" => "",

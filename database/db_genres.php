@@ -5,6 +5,7 @@ class Genre
 {
     protected $genre_id;
     protected $genre_name;
+    protected $genre_image;
 
     protected $errors = [];
     function hasError()
@@ -43,22 +44,35 @@ class Genre
         }
     }
 
+    function getGenreImage()
+    {
+        return $this->genre_image;
+    }
+    function setGenreImage($genre_image)
+    {
+        $this->genre_image = trim(htmlspecialchars($genre_image));
+
+        if (empty($this->genre_image) || is_null($this->genre_image)) {
+            $this->errors["genre_image"] = "Image is required.";
+        }
+    }
+
     function __construct($properties = [])
     {
         if (isset($properties["genre_name"])) $this->setComicTitle($properties["genre_name"]);
+        if (isset($properties["genre_image"])) $this->setGenreImage($properties["genre_image"]);
     }
 
     function insert()
     {
         $sql = new DBMaster();
-        $sql->sqlStatement("insert into tbl_genres (genre_name) values(:genre_name)")
+        $sql->sqlStatement("insert into tbl_genres (genre_name, genre_image) values(:genre_name, :genre_image)")
             ->params([
-                "genre_name" => $this->genre_name
+                "genre_name" => $this->genre_name,
+                "genre_image" => $this->genre_image
             ])
             ->execute();
         $this->genre_id = $sql->getConnection()->lastInsertId();
         return $sql->getRowCount();
     }
-    
-    
 }

@@ -27,6 +27,7 @@ require('../../../database/db_genres.php');
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col" class="text-center">Genre Name</th>
+                    <th scope="col" class="text-center">Genre Image</th>
                     <th scope="col" class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -35,11 +36,18 @@ require('../../../database/db_genres.php');
                 $sql = new DBMaster();
                 $serial_no = 0;
                 $sql->execute("select * from tbl_genres")->forEach(function ($serial_no, $row) {
+                    $img = $row['genre_image'];
+                    if ($img) {
+                        $img = Path::getDomainUri() . "public/uploads/" . $img;
+                    } else {
+                        $img = Path::getDomainUri() . "public/images/dummy_400_400.png";
+                    }
                     $serial_no++;
                     echo "
                     <tr>
                         <th scope='row'>{$serial_no}</th>
                         <td>{$row['genre_name']}</td>
+                        <td><img src='{$img}' class='img-thumbnail' width='250px' alt='genres'></td>
                         <td>
                             <a class='btn btn-warning' href='#' role='button'>Edit</a>
                             <a class='btn btn-danger' href='#' role='button'>Delete</a>
