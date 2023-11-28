@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </header>
 
     <?php
-    $activeTab = "admin-add-comics";
+    $activeTab = "admin-all-comics";
     include_once '../../components/navbar.php';
     ?>
 

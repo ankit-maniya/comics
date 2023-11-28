@@ -6,8 +6,8 @@
             <li class="<?php echo $activeTab == "checkout" ? "active" : ""; ?>"><a href="<?php echo Path::getDomainUri(); ?>pages/checkout.php">checkout</a></li>
             <li class="<?php echo $activeTab == "cart" ? "active" : ""; ?>"><a href="<?php echo Path::getDomainUri(); ?>pages/cart.php">Cart</a></li>
             <li class='<?php echo $activeTab == "login" ? "active" : ""; ?>'><a href="<?php echo Path::getDomainUri(); ?>pages/login.php">Login</a></li>
-            <li class='<?php echo $activeTab == "admin-add-comics" ? "active" : ""; ?>'><a href="<?php echo Path::getDomainUri(); ?>pages/admin/comics/add_comics.php">Add Comics</a></li>
-            <li class='<?php echo $activeTab == "admin-add-genres" ? "active" : ""; ?>'><a href="<?php echo Path::getDomainUri(); ?>pages/admin/genres/add_genres.php">Add Genres</a></li>
+            <li class='<?php echo $activeTab == "admin-all-comics" ? "active" : ""; ?>'><a href="<?php echo Path::getDomainUri(); ?>pages/admin/comics/">Comics</a></li>
+            <li class='<?php echo $activeTab == "admin-all-genres" ? "active" : ""; ?>'><a href="<?php echo Path::getDomainUri(); ?>pages/admin/genres/">Genres</a></li>
         </ul>
     </div>
 </nav>
