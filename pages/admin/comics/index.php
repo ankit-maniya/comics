@@ -21,13 +21,14 @@ require('../../../database/db_comics.php');
     $activeTab = "admin-all-comics";
     include_once '../../components/navbar.php';
     ?>
-    <div class="table-responsive">
+    <div class="table-responsive mb-5">
         <table class="table align-middle">
             <thead class="table-dark">
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col" class="text-center">Title</th>
                     <th scope="col" class="text-center">Price</th>
+                    <th scope="col" class="text-center">Image</th>
                     <th scope="col" class="text-center">Description</th>
                     <th scope="col" class="text-center">Stock Quantity</th>
                     <th scope="col" class="text-center">Genere</th>
@@ -42,11 +43,19 @@ require('../../../database/db_comics.php');
                 $serial_no = 0;
                 $sql->execute("select * from tbl_genres JOIN tbl_comics ON tbl_genres.genre_id = tbl_comics.genre_id")->forEach(function ($serial_no, $row) {
                     $serial_no++;
+                    $img = $row['comic_image'];
+                    if ($img) {
+                        $img = Path::getDomainUri() . "public/uploads/" . $img;
+                    } else {
+                        $img = Path::getDomainUri() . "public/images/dummy_400_400.png";
+                    }
+
                     echo "
                     <tr>
                         <th scope='row'>{$serial_no}</th>
                         <td>{$row['comic_title']}</td>
                         <td>{$row['comic_price']}</td>
+                        <td><img src='{$img}' class='img-thumbnail' width='250px' alt='testing'></td>
                         <td>{$row['comic_description']}</td>
                         <td>{$row['comic_stock_quantity']}</td>
                         <td>{$row['genre_name']}</td>

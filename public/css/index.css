@@ -136,7 +136,8 @@ table {
   margin-bottom: 20px;
 }
 
-table th, table td {
+table th,
+table td {
   border: 1px solid #ccc;
   padding: 8px;
 }

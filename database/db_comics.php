@@ -6,6 +6,7 @@ class Comic
     protected $comic_id;
     protected $comic_title;
     protected $comic_price;
+    protected $comic_image;
     protected $comic_description;
     protected $comic_stock_quantity;
     protected $genre_id;
@@ -59,6 +60,19 @@ class Comic
         $this->comic_price = trim(htmlspecialchars($comic_price));
         if (empty($this->comic_price)) {
             $this->errors["comic_price"] = "Price is required.";
+        }
+    }
+
+    function getComicImage()
+    {
+        return $this->comic_image;
+    }
+    function setComicImage($comic_image)
+    {
+        $this->comic_image = trim(htmlspecialchars($comic_image));
+
+        if (empty($this->comic_image) || is_null($this->comic_image)) {
+            $this->errors["comic_image"] = "Image is required.";
         }
     }
 
@@ -126,6 +140,7 @@ class Comic
     {
         if (isset($properties["comic_title"])) $this->setComicTitle($properties["comic_title"]);
         if (isset($properties["comic_price"])) $this->setComicPrice($properties["comic_price"]);
+        if (isset($properties["comic_image"])) $this->setComicImage($properties["comic_image"]);
         if (isset($properties["comic_description"])) $this->setComicDescription($properties["comic_description"]);
         if (isset($properties["comic_stock_quantity"])) $this->setComicStockQuantity($properties["comic_stock_quantity"]);
         if (isset($properties["genre_id"])) $this->setGenreId($properties["genre_id"]);
@@ -136,10 +151,11 @@ class Comic
     function insert()
     {
         $sql = new DBMaster();
-        $sql->sqlStatement("insert into tbl_comics (comic_title, comic_price, comic_description, comic_stock_quantity, genre_id, comic_author_name, comic_author_email) values(:comic_title, :comic_price, :comic_description, :comic_stock_quantity, :genre_id, :comic_author_name, :comic_author_email)")
+        $sql->sqlStatement("insert into tbl_comics (comic_title, comic_price, comic_image, comic_description, comic_stock_quantity, genre_id, comic_author_name, comic_author_email) values(:comic_title, :comic_price, :comic_image, :comic_description, :comic_stock_quantity, :genre_id, :comic_author_name, :comic_author_email)")
             ->params([
                 "comic_title" => $this->comic_title,
                 "comic_price" => $this->comic_price,
+                "comic_image" => $this->comic_image,
                 "comic_description" => $this->comic_description,
                 "comic_stock_quantity" => $this->comic_stock_quantity,
                 "genre_id" => $this->genre_id,

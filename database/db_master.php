@@ -98,6 +98,7 @@ class DBMaster
             `comic_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
             `comic_title` VARCHAR(100) NOT NULL,
             `comic_price` decimal(10,2) NOT NULL,
+            `comic_image` VARCHAR(100),
             `comic_description` TEXT NOT NULL,
             `comic_stock_quantity` INT DEFAULT 0,
             `genre_id` mediumint(8) unsigned,
