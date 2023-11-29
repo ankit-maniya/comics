@@ -94,8 +94,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (strpos($result, "Error") === 0) {
                 $hasImageError = true;
             } else {
-                ImageHandler::removeImage($_POST['up_comic_image']);
-                $uploadedFileName = $result;
+                if ($_POST['up_comic_image'] !== "dummy_400_400.png") {
+                    ImageHandler::removeImage($_POST['up_comic_image']);
+                    $uploadedFileName = $result;
+                }
             }
         }
 
