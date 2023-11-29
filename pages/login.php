@@ -3,7 +3,8 @@
 
 <?php
 require_once('../configs/Path.php');
-include_once './components/header.php';
+require_once('./components/header.php');
+// require_once('database/db_user.php');
 ?>
 
 <body>
@@ -16,7 +17,6 @@ include_once './components/header.php';
     ?>
 
     <div class="my-container mb-5">
-        <!-- Login form -->
         <h1>Login</h1>
         <form method="post" action="login.php">
             <label for="login_username">Username:</label>
@@ -29,14 +29,10 @@ include_once './components/header.php';
         </form>
 
         <?php
-        // Check if the form is submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // For login form
             if (isset($_POST['login_username']) && isset($_POST['login_password'])) {
                 $username = $_POST['login_username'];
                 $password = $_POST['login_password'];
-                
-                // Validate username and password
                 if (empty($username)) {
                     echo "Username is required.<br>";
                 }
@@ -44,14 +40,12 @@ include_once './components/header.php';
                     echo "Password is required.<br>";
                 }
                 if (!empty($username) && !empty($password)) {
-                    // Process the login
-                    // Example: Check the username and password against a database
+
                 }
             }
         }
         ?>
 
-        <!-- Sign Up form -->
         <h1>Sign Up</h1>
         <form method="post" action="login.php">
             <label for="user_name">Username:</label>
@@ -77,16 +71,13 @@ include_once './components/header.php';
         </form>
 
         <?php
-        // Check if the form is submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // For sign-up form
             if (isset($_POST['user_name']) && isset($_POST['user_email']) && isset($_POST['user_type']) && isset($_POST['user_password'])) {
                 $username = $_POST['user_name'];
                 $email = $_POST['user_email'];
                 $userType = $_POST['user_type'];
                 $password = $_POST['user_password'];
                 
-                // Validate input data
                 if (empty($username)) {
                     echo "Username is required.<br>";
                 }
@@ -100,8 +91,7 @@ include_once './components/header.php';
                     echo "Password is required.<br>";
                 }
                 if (!empty($username) && !empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($userType) && in_array($userType, ["Admin", "Customer"]) && !empty($password)) {
-                    // Process the sign-up
-                    // Example: Insert the new user into a database
+                    
                 }
             }
         }
