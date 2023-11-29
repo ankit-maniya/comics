@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                         <td>{$row['genre_name']}</td>
                         <td><img src='{$img}' class='img-thumbnail' width='250px' alt='genres'></td>
                         <td>
-                            <a class='btn btn-warning' href='#' role='button'>Edit</a>
+                        <a class='btn btn-warning' href='add_genres.php?genre_id={$row['genre_id']}' role='button'>Edit</a>
                             <a class='btn btn-danger' href='?genre_id={$row['genre_id']}&&genre_image={$row['genre_image']}' role='button'>Delete</a>
                         </td>
                     </tr>";

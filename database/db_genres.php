@@ -40,11 +40,11 @@ class Genre
         }
     }
 
-    function getComicTitle()
+    function getGenreTitle()
     {
         return $this->genre_name;
     }
-    function setComicTitle($genre_name)
+    function setGenreTitle($genre_name)
     {
         $this->genre_name = trim(htmlspecialchars($genre_name));
         if (empty($this->genre_name)) {
@@ -68,7 +68,7 @@ class Genre
     function __construct($properties = [])
     {
         if (isset($properties["genre_id"])) $this->setGenreId($properties["genre_id"]);
-        if (isset($properties["genre_name"])) $this->setComicTitle($properties["genre_name"]);
+        if (isset($properties["genre_name"])) $this->setGenreTitle($properties["genre_name"]);
         if (isset($properties["genre_image"])) $this->setGenreImage($properties["genre_image"]);
     }
 
@@ -85,6 +85,19 @@ class Genre
         return $sql->getRowCount();
     }
 
+    function update()
+    {
+        $sql = new DBMaster();
+        $sql->sqlStatement("update tbl_genres set genre_name = :genre_name, genre_image= :genre_image  where genre_id =:genre_id")
+            ->params([
+                "genre_name" => $this->genre_name,
+                "genre_image" => $this->genre_image,
+                "genre_id" => $this->genre_id,
+            ])
+            ->execute();
+        return $sql->getRowCount();
+    }
+
     function delete()
     {
         $sql = new DBMaster();
@@ -94,5 +107,20 @@ class Genre
             ])
             ->execute();
         return $sql->getRowCount();
+    }
+
+    function find($genre_id)
+    {
+        if (filter_var($genre_id, FILTER_VALIDATE_INT)) {
+            $sql = new DBMaster();
+            $sql->sqlStatement("select * from tbl_genres where genre_id =:genre_id")
+                ->params(["genre_id" => $genre_id])
+                ->execute()
+                ->forOne(function ($row, $userDefinedData) {
+                    $userDefinedData->setGenreId($row['genre_id']);
+                    $userDefinedData->setGenreTitle($row['genre_name']);
+                    $userDefinedData->setGenreImage($row['genre_image']);
+                }, $this);
+        }
     }
 }
