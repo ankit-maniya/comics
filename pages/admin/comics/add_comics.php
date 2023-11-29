@@ -25,6 +25,28 @@ $inputs = [
     "comic_author_email" => "",
 ];
 
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if (array_key_exists('comic_id', $_GET)) {
+        $isUpdate = true;
+
+        $comic = new Comic();
+        $comic->find($_GET['comic_id']);
+
+        if ($comic->getComicId() > 0) {
+            $inputs = array_merge($inputs, [
+                "comic_title" => $comic->getComicTitle(),
+                "comic_price" => $comic->getComicPrice(),
+                "comic_image" => $comic->getComicImage(),
+                "comic_description" => $comic->getComicDescription(),
+                "comic_stock_quantity" => $comic->getComicStockQuantity(),
+                "genre_id" => $comic->getGenreId(),
+                "comic_author_name" => $comic->getComicAuthorName(),
+                "comic_author_email" => $comic->getComicAuthorEmail(),
+            ]);
+        }
+    }
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (array_key_exists('add_comics_submit', $_POST)) {
         $inputs = array_merge($inputs, $_POST);
@@ -64,8 +86,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (array_key_exists('update_comics_submit', $_POST)) {
 
+        $uploadedFileName = $_POST['up_comic_image'];
+        $hasImageError = false;
+
+        if ($_FILES["image"]["size"] !== 0) {
+            $result = ImageHandler::handleImageUploadToServer($_FILES["image"]);
+            if (strpos($result, "Error") === 0) {
+                $hasImageError = true;
+            } else {
+                ImageHandler::removeImage($_POST['up_comic_image']);
+                $uploadedFileName = $result;
+            }
+        }
+
         $comic = new Comic(array_merge([
-            "comic_id" => ""
+            "comic_id" => "",
+            "comic_image" => $uploadedFileName
         ], $_POST));
 
         if (count($comic->getErrors()) == 0) {
@@ -74,32 +110,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: index.php");
         } else {
             $errors = $comic->getErrors();
+            if ($hasImageError) {
+                $errors['comic_image'] = $result;
+            }
         }
     }
 }
 
-
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    if (array_key_exists('comic_id', $_GET)) {
-        $isUpdate = true;
-
-        $comic = new Comic();
-        $comic->find($_GET['comic_id']);
-
-        if ($comic->getComicId() > 0) {
-            $inputs = array_merge($inputs, [
-                "comic_title" => $comic->getComicTitle(),
-                "comic_price" => $comic->getComicPrice(),
-                "comic_image" => $comic->getComicImage(),
-                "comic_description" => $comic->getComicDescription(),
-                "comic_stock_quantity" => $comic->getComicStockQuantity(),
-                "genre_id" => $comic->getGenreId(),
-                "comic_author_name" => $comic->getComicAuthorName(),
-                "comic_author_email" => $comic->getComicAuthorEmail(),
-            ]);
-        }
-    }
-}
 ?>
 
 <body>
@@ -190,6 +207,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             <div class="mb-3">
                 <label for="formFile" class="form-label">Comic Image</label>
                 <input class="form-control" type="file" id="comic_image" name="image">
+                <?php
+                if ($isUpdate) {
+                ?>
+                    <input type="hidden" class="form-control" id="up_comic_image" name="up_comic_image" value='<?php echo isset($inputs["comic_image"]) ? $inputs["comic_image"] : "dummy_400_400.png" ?>' />
+                <?php
+                }
+                ?>
                 <?php
                 $img = $inputs['comic_image'];
                 if ($img) {
