@@ -6,11 +6,11 @@
 <html>
 
 <?php
-include_once '../../../configs/Path.php';
-include_once '../../../helpers/ImageHandler.php';
-include_once '../../components/header.php';
+require_once('../../../configs/Path.php');
+require_once('../../../helpers/ImageHandler.php');
+require_once('../../components/header.php');
 
-require('../../../database/db_comics.php');
+require_once('../../../database/db_comics.php');
 
 $isUpdate = false;
 $errors;
@@ -136,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php
     $activeTab = "admin-all-comics";
-    include_once '../../components/navbar.php';
+    require_once('../../components/navbar.php');
     ?>
 
     <div class="container my-5">
@@ -217,14 +217,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 ?>
                 <?php
-                $img = $inputs['comic_image'];
-                if ($img) {
-                    $img = Path::getDomainUri() . "public/uploads/" . $img;
-                } else {
-                    $img = Path::getDomainUri() . "public/images/dummy_400_400.png";
-                }
+                $imgUri = ImageHandler::getImgUri($inputs['comic_image']);
                 ?>
-                <img src='<?php echo $img ?>' class='img-thumbnail' width='250px' alt='comics'>
+                <img src='<?php echo $imgUri ?>' class='img-thumbnail' width='250px' alt='comics'>
                 <?php
                 if (isset($errors) && key_exists('comic_image', $errors)) {
                 ?>
@@ -307,7 +302,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <?php
-    include_once '../../components/footer.php';
+    require_once('../../components/footer.php');
     ?>
 
 </body>

@@ -17,7 +17,7 @@ foreach ($cartItems as $item) {
 }
 
 $shippingRate = 7.99;
-$taxRate = 0.13; 
+$taxRate = 0.13;
 
 $total = $subTotal + $shippingRate + ($subTotal * $taxRate);
 ?>
@@ -32,10 +32,10 @@ $total = $subTotal + $shippingRate + ($subTotal * $taxRate);
     include_once './components/navbar.php';
     ?>
 
-<div class="container">
+    <div class="my-container">
 
-<!-- Order summary -->
-<h2>Your Order</h2>
+        <!-- Order summary -->
+        <h2>Your Order</h2>
         <table>
             <tr>
                 <th>Product</th>
@@ -64,7 +64,7 @@ $total = $subTotal + $shippingRate + ($subTotal * $taxRate);
                 <td><strong>$<?= number_format($total, 2) ?></strong></td>
             </tr>
         </table>
-        
+
 
         <!-- Form for capturing user details -->
         <form method="POST" action="process_order.php">

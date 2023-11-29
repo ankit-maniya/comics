@@ -124,8 +124,7 @@ form input[type="submit"]:hover {
 /*Checkout*/
 
 /* Checkout Summary Styles */
-.container h2 {
-  margin-top: 50px;
+.my-container h2 {
   text-align: center;
   font-size: 3em;
 }

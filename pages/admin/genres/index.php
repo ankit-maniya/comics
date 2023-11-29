@@ -6,10 +6,11 @@
 <html>
 
 <?php
-include_once '../../../configs/Path.php';
-include_once '../../components/header.php';
+require_once('../../../configs/Path.php');
+require_once('../../../helpers/ImageHandler.php');
+require_once('../../components/header.php');
 
-require('../../../database/db_genres.php');
+require_once('../../../database/db_genres.php');
 
 $errors;
 $success;
@@ -43,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     <?php
     $activeTab = "admin-all-genres";
-    include_once '../../components/navbar.php';
+    require_once('../../components/navbar.php');
     ?>
     <div class="container">
         <?php
@@ -71,18 +72,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     $sql = new DBMaster();
                     $serial_no = 0;
                     $sql->execute("select * from tbl_genres")->forEach(function ($serial_no, $row) {
-                        $img = $row['genre_image'];
-                        if ($img) {
-                            $img = Path::getDomainUri() . "public/uploads/" . $img;
-                        } else {
-                            $img = Path::getDomainUri() . "public/images/dummy_400_400.png";
-                        }
+                        $imgUri = ImageHandler::getImgUri($row['genre_image']);
                         $serial_no++;
                         echo "
                     <tr>
                         <th scope='row'>{$serial_no}</th>
                         <td>{$row['genre_name']}</td>
-                        <td><img src='{$img}' class='img-thumbnail' width='250px' alt='genres'></td>
+                        <td><img src='{$imgUri}' class='img-thumbnail' width='250px' alt='genres'></td>
                         <td>
                         <a class='btn btn-warning' href='add_genres.php?genre_id={$row['genre_id']}' role='button'>Edit</a>
                             <a class='btn btn-danger' href='?genre_id={$row['genre_id']}&&genre_image={$row['genre_image']}' role='button'>Delete</a>
@@ -95,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         </div>
     </div>
     <?php
-    include_once '../../components/footer.php';
+    require_once('../../components/footer.php');
     ?>
 
 </body>

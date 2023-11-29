@@ -6,11 +6,11 @@
 <html>
 
 <?php
-include_once '../../../configs/Path.php';
-include_once '../../../helpers/ImageHandler.php';
-include_once '../../components/header.php';
+require_once('../../../configs/Path.php');
+require_once('../../../helpers/ImageHandler.php');
+require_once('../../components/header.php');
 
-require('../../../database/db_genres.php');
+require_once('../../../database/db_genres.php');
 
 $isUpdate = false;
 $errors;
@@ -120,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php
     $activeTab = "admin-all-genres";
-    include_once '../../components/navbar.php';
+    require_once('../../components/navbar.php');
     ?>
 
     <div class="container my-5">
@@ -167,14 +167,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 ?>
                 <?php
-                $img = isset($inputs['genre_image']) ? $inputs['genre_image'] : null;
-                if ($img) {
-                    $img = Path::getDomainUri() . "public/uploads/" . $img;
-                } else {
-                    $img = Path::getDomainUri() . "public/images/dummy_400_400.png";
-                }
+                $imgUri = ImageHandler::getImgUri($inputs['genre_image']);
                 ?>
-                <img src='<?php echo $img ?>' class='img-thumbnail' width='250px' alt='genres'>
+                <img src='<?php echo $imgUri ?>' class='img-thumbnail' width='250px' alt='genres'>
                 <?php
                 if (isset($errors) && key_exists('genre_image', $errors)) {
                 ?>
@@ -201,7 +196,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <?php
-    include_once '../../components/footer.php';
+    require_once('../../components/footer.php');
     ?>
 
 </body>

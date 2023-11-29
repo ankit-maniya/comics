@@ -10,6 +10,8 @@ class Comic
     protected $comic_description;
     protected $comic_stock_quantity;
     protected $genre_id;
+    protected $genre_name;
+    protected $genre_image;
     protected $comic_author_name;
     protected $comic_author_email;
     protected $comic_updated_at;
@@ -120,6 +122,24 @@ class Comic
         }
     }
 
+    function getGenreName()
+    {
+        return $this->genre_name;
+    }
+    function setGenreName($genre_name)
+    {
+        $this->genre_name = trim(htmlspecialchars($genre_name));
+    }
+
+    function getGenreImage()
+    {
+        return $this->genre_image;
+    }
+    function setGenreImage($genre_image)
+    {
+        $this->genre_image = trim(htmlspecialchars($genre_image));
+    }
+
     function getComicAuthorName()
     {
         return $this->comic_author_name;
@@ -153,6 +173,8 @@ class Comic
         if (isset($properties["comic_description"])) $this->setComicDescription($properties["comic_description"]);
         if (isset($properties["comic_stock_quantity"])) $this->setComicStockQuantity($properties["comic_stock_quantity"]);
         if (isset($properties["genre_id"])) $this->setGenreId($properties["genre_id"]);
+        if (isset($properties["genre_name"])) $this->setGenreName($properties["genre_name"]);
+        if (isset($properties["genre_image"])) $this->setGenreImage($properties["genre_image"]);
         if (isset($properties["comic_author_name"])) $this->setComicAuthorName($properties["comic_author_name"]);
         if (isset($properties["comic_author_email"])) $this->setComicAuthorEmail($properties["comic_author_email"]);
     }
@@ -210,7 +232,7 @@ class Comic
     {
         if (filter_var($comic_id, FILTER_VALIDATE_INT)) {
             $sql = new DBMaster();
-            $sql->sqlStatement("select * from tbl_comics where comic_id=:comic_id")
+            $sql->sqlStatement("select * from tbl_genres JOIN tbl_comics ON tbl_genres.genre_id = tbl_comics.genre_id where comic_id=:comic_id")
                 ->params(["comic_id" => $comic_id])
                 ->execute()
                 ->forOne(function ($row, $userDefinedData) {
@@ -221,6 +243,8 @@ class Comic
                     $userDefinedData->setComicDescription($row['comic_description']);
                     $userDefinedData->setComicStockQuantity($row['comic_stock_quantity']);
                     $userDefinedData->setGenreId($row['genre_id']);
+                    $userDefinedData->setGenreName($row['genre_name']);
+                    $userDefinedData->setGenreImage($row['genre_image']);
                     $userDefinedData->setComicAuthorName($row['comic_author_name']);
                     $userDefinedData->setComicAuthorEmail($row['comic_author_email']);
                 }, $this);

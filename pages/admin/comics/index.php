@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     <?php
     $activeTab = "admin-all-comics";
-    include_once '../../components/navbar.php';
+    require_once('../../components/navbar.php');
     ?>
     <div class="container">
         <?php
@@ -80,19 +80,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     $serial_no = 0;
                     $sql->execute("select * from tbl_genres JOIN tbl_comics ON tbl_genres.genre_id = tbl_comics.genre_id")->forEach(function ($serial_no, $row) {
                         $serial_no++;
-                        $img = $row['comic_image'];
-                        if ($img) {
-                            $img = Path::getDomainUri() . "public/uploads/" . $img;
-                        } else {
-                            $img = Path::getDomainUri() . "public/images/dummy_400_400.png";
-                        }
+                        $imgUri = ImageHandler::getImgUri($row['comic_image']);
 
                         echo "
                     <tr>
                         <th scope='row'>{$serial_no}</th>
                         <td>{$row['comic_title']}</td>
                         <td>{$row['comic_price']}</td>
-                        <td><img src='{$img}' class='img-thumbnail' width='250px' alt='comics'></td>
+                        <td><img src='{$imgUri}' class='img-thumbnail' width='250px' alt='comics'></td>
                         <td>{$row['comic_description']}</td>
                         <td>{$row['comic_stock_quantity']}</td>
                         <td>{$row['genre_name']}</td>
@@ -111,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     </div>
 
     <?php
-    include_once '../../components/footer.php';
+    require_once('../../components/footer.php');
     ?>
 
 </body>
