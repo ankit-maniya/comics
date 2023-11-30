@@ -10,20 +10,19 @@ $user = new User();
 $showLoginForm = !isset($_POST['showSignup']) || ($_POST['showSignup'] == 0);
 $showSignupForm = isset($_POST['showSignup']) && ($_POST['showSignup'] == 1);
 
-// Check if the login form is submitted
+
 $isLoginFormSubmitted = ($showLoginForm && $_SERVER["REQUEST_METHOD"] == "POST");
 
-// Check if the signup form is submitted
+
 $isSignupFormSubmitted = ($showSignupForm && $_SERVER["REQUEST_METHOD"] == "POST");
 
-// Set properties from the submitted form data
+
 if ($isLoginFormSubmitted) {
     $user->setUserId($_POST["login_username"]);
     $user->setPassword($_POST["login_password"]);
 
-    // If there are no errors, you can proceed with login logic here
     if (empty($user->getErrors())) {
-        // Your login logic goes here
+        echo 'Login Done'
     }
 } elseif ($isSignupFormSubmitted) {
     $user->setUserId($_POST["user_name"]);
@@ -32,9 +31,8 @@ if ($isLoginFormSubmitted) {
     $user->setType($_POST["user_type"]);
     $user->setPassword($_POST["user_password"]);
 
-    // If there are no errors, you can proceed with signup logic here
     if (empty($user->getErrors())) {
-        // Your signup logic goes here
+        echo ' Signup Done'
     }
 }
 ?>
