@@ -66,8 +66,7 @@ class DBMaster
     {
         $pdo->query("CREATE TABLE `tbl_users` (
             `user_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-            `user_firstname` VARCHAR(100) NOT NULL,
-            `user_lastname` VARCHAR(100) DEFAULT '',
+            `user_name` VARCHAR(100) NOT NULL,
             `user_type` VARCHAR(100) DEFAULT 'customer',
             `user_username` VARCHAR(100) NOT NULL,
             `user_password` VARCHAR(255) NOT NULL,
