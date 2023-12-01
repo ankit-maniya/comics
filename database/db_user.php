@@ -28,11 +28,6 @@ class User
     function setUserId($user_id)
     {
         $this->user_id = trim(htmlspecialchars($user_id));
-        if (empty($this->user_id)) {
-            $this->errors["user_id"] = "<p>User Id is required.</p>";
-        } else if (!filter_var($this->user_id, FILTER_VALIDATE_INT)) {
-            $this->errors["user_id"] = "<p>User Id is Invalid</p>";
-        }
         $this->user_id = (int)$this->user_id;
     }
 
@@ -99,17 +94,19 @@ class User
     function insert()
     {
         $sql = new DBMaster();
-        $sql->sqlStatement("insert into tbl_users (user_id, user_name, user_email, user_type, user_password) values(:user_id, :user_name, :user_email, :user_type, :user_password)")
+        $hashedPassword = password_hash($this->user_password, PASSWORD_DEFAULT);
+        $sql->sqlStatement("insert into tbl_users (user_name, user_email, user_type, user_password) values(:user_name, :user_email, :user_type, :user_password)")
             ->params([
-                "user_id" => $this->user_id,
+                
                 "user_name" => $this->user_name,
                 "user_email" => $this->user_email,
                 "user_type" => $this->user_type,
-                "user_password" => $this->user_password,
+                "user_password" => $hashedPassword,
             ])
             ->execute();
         $this->user_id = $sql->getConnection()->lastInsertId();
         return $sql->getRowCount();
     }
+    
 }
 ?>

@@ -7,7 +7,11 @@ $user->setEmail($_POST["user_email"]);
 $user->setType($_POST["user_type"]);
 $user->setPassword($_POST["user_password"]);
 
-if (empty($user->getErrors())) {
+if (count($user->getErrors())>0) {
+    foreach($user->getErrors() as $error){
+            echo $error;
+        }
+        echo '<br><a href="login.php">Go Back</a>';}else {
     $user->insert();
     echo "<p>User successfully registered!</p>";
     echo '<a href="login.php">Back to Login</a>';

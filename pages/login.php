@@ -19,24 +19,26 @@ $isLoginFormSubmitted = ($showLoginForm && $_SERVER["REQUEST_METHOD"] == "POST")
 $isSignupFormSubmitted = ($showSignupForm && $_SERVER["REQUEST_METHOD"] == "POST");
 
 
-if ($isLoginFormSubmitted) {
-    $user->setUserId($_POST["login_username"]);
-    $user->setPassword($_POST["login_password"]);
+// if ($isLoginFormSubmitted) {
+//     $user->setUserId($_POST["login_username"]);
+//     $user->setPassword($_POST["login_password"]);
 
-    if (empty($user->getErrors())) {
-        echo 'Login Done';
-    }
-} elseif ($isSignupFormSubmitted) {
-    $user->setUserId($_POST["user_name"]);
-    $user->setName($_POST["user_name"]);
-    $user->setEmail($_POST["user_email"]);
-    $user->setType($_POST["user_type"]);
-    $user->setPassword($_POST["user_password"]);
+//     if (empty($user->getErrors())) {
+//         echo 'Login Done';
+//     }
+// } elseif ($isSignupFormSubmitted) {
+//     // $user->setUserId($_POST["user_name"]);
+//     // $user->setName($_POST["user_name"]);
+//     // $user->setEmail($_POST["user_email"]);
+//     // $user->setType($_POST["user_type"]);
+//     // $user->setPassword($_POST["user_password"]);
 
-    if (empty($user->getErrors())) {
-        echo ' Signup Done';
-    }
-}
+//     // $hashedPassword = password_hash($_POST["user_password"], PASSWORD_DEFAULT);
+//     // // $user->setPassword($hashedPassword);
+//     // if (empty($user->getErrors())) {
+//     //     $user->insert();
+//     // }
+// }
 ?>
 
 <body>
