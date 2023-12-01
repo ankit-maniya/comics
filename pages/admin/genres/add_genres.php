@@ -36,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 }
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (array_key_exists('add_genres_submit', $_POST)) {
         $inputs = array_merge($inputs, $_POST);

@@ -66,7 +66,7 @@ class ImageHandler
     {
         $img = Path::getDomainUri() . "public/images/dummy_400_400.png";
         if ($imgName) {
-            $img = Path::getDomainUri() . "public/uploads/" . $imgName;
+            $img = Path::getDomainUri() . "public/images/" . $imgName;
         }
 
         return $img;

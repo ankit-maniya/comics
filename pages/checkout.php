@@ -4,22 +4,14 @@
 require_once('../database/db_master.php');
 require_once('../configs/Path.php');
 include_once './components/header.php';
+require_once('../helpers/ImageHandler.php');
+require_once('../database/db_comics.php');
 
-// Simulated cart items (you might fetch these from your database)
-$cartItems = [
-    ['product' => 'Comic 1', 'price' => 70.00, 'quantity' => 1],
-    // ... more items
-];
+session_start();
 
-$subTotal = 0;
-foreach ($cartItems as $item) {
-    $subTotal += $item['price'] * $item['quantity'];
-}
+// Retrieving cart items stored in the session
+$cartItems = $_SESSION['cart'] ?? [];
 
-$shippingRate = 7.99;
-$taxRate = 0.13;
-
-$total = $subTotal + $shippingRate + ($subTotal * $taxRate);
 ?>
 
 <body>
@@ -67,7 +59,7 @@ $total = $subTotal + $shippingRate + ($subTotal * $taxRate);
 
 
         <!-- Form for capturing user details -->
-        <form method="POST" action="process_order.php">
+        <form method="POST" action="purchase.php">
             <h2>Billing Information</h2>
             <label for="firstname">First Name:</label>
             <input type="text" id="firstname" name="firstname" required><br><br>

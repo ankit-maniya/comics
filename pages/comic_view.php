@@ -2,6 +2,9 @@
 <!DOCTYPE html>
 <html>
 <?php
+
+
+
 require_once('../configs/Path.php');
 require_once('../helpers/ImageHandler.php');
 require_once('./components/header.php');
@@ -50,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     </header>
 
     <?php
+    
     $activeTab = "comics";
     require_once('./components/navbar.php');
     ?>
@@ -99,9 +103,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                                 <label class='fw-bold'>Author Email:</label>
                                 <span class='card-text'>{$comicsDetail['comic_author_email']}</span>
                             </div>
-                            <div class='d-grid gap-2 col-6 mx-auto my-3'>
-                                <button class='btn btn-success' type='button'>Add To Cart</button>
-                            </div>
+                            
+                            
+                           
+
+
                         </div>
                     </div>
                     ";
@@ -114,7 +120,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     ?>
     <?php
     require_once('./components/footer.php');
+    
     ?>
+    
 </body>
 
 </html>

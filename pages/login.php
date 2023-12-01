@@ -2,9 +2,11 @@
 <html>
 
 <?php
-require_once('../configs/Path.php');
-require_once('./components/header.php');
 require('../database/db_user.php');
+require_once('../configs/Path.php');
+require_once('../helpers/ImageHandler.php');
+require_once('./components/header.php');
+require_once('../database/db_comics.php');
 
 $user = new User();
 $showLoginForm = !isset($_POST['showSignup']) || ($_POST['showSignup'] == 0);
@@ -22,7 +24,7 @@ if ($isLoginFormSubmitted) {
     $user->setPassword($_POST["login_password"]);
 
     if (empty($user->getErrors())) {
-        echo 'Login Done'
+        echo 'Login Done';
     }
 } elseif ($isSignupFormSubmitted) {
     $user->setUserId($_POST["user_name"]);
@@ -32,7 +34,7 @@ if ($isLoginFormSubmitted) {
     $user->setPassword($_POST["user_password"]);
 
     if (empty($user->getErrors())) {
-        echo ' Signup Done'
+        echo ' Signup Done';
     }
 }
 ?>
