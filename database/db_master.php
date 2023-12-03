@@ -200,19 +200,32 @@ class DBMaster
         $this->params = $params;
         return $this;
     }
+    
+
     function execute($sqlStatement = "")
     {
         if (!empty($sqlStatement)) {
             $this->sqlStatement = $sqlStatement;
         }
-        if (is_array($this->params)) {
-            $this->stmt = self::$connectDB->prepare($this->sqlStatement);
-            $this->stmt->execute($this->params);
-        } else {
-            $this->stmt = self::$connectDB->query($this->sqlStatement);
+
+        try {
+            if (is_array($this->params)) {
+                $this->stmt = self::$connectDB->prepare($this->sqlStatement);
+                $this->stmt->execute($this->params);
+            } else {
+                $this->stmt = self::$connectDB->query($this->sqlStatement);
+            }
+        } catch (PDOException $e) {
+            echo "Error executing query: " . $e->getMessage();
         }
+
         return $this;
     }
+    function fetchOne()
+    {
+        return $this->stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     // Ankit Maniya
     function forEach(callable $callback, $userDefinedData = null)
     {
@@ -228,4 +241,7 @@ class DBMaster
             $callback($row, $userDefinedData);
         }
     }
+    
+
+
 }

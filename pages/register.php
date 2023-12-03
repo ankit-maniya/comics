@@ -7,13 +7,13 @@ $user->setEmail($_POST["user_email"]);
 $user->setType($_POST["user_type"]);
 $user->setPassword($_POST["user_password"]);
 
-if (count($user->getErrors())>0) {
-    foreach($user->getErrors() as $error){
-            echo $error;
-        }
-        echo '<br><a href="login.php">Go Back</a>';}else {
+if (count($user->getErrors()) > 0) {
+    $errorMessages = implode('<br>', $user->getErrors());
+    header("Location: login.php?error=$errorMessages");
+    exit();
+} else {
     $user->insert();
-    echo "<p>User successfully registered!</p>";
-    echo '<a href="login.php">Back to Login</a>';
-}  
+    header("Location: ../index.php?success=User successfully registered!");
+    exit();
+}
 ?>
