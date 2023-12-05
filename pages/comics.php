@@ -29,7 +29,7 @@ require_once('./components/header.php');
         $genreDB = new Genre();
        
 
-        if ($genres && count($genres) > 0) {
+        if (isset($genres) && count($genres) > 0) {
             foreach ($genres as $genre) {
                 echo "<li class='list-group-item'><a href='#'>{$genre['genre_name']}</a></li>";
             }
