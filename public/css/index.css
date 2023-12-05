@@ -1,3 +1,4 @@
+/* Ankit Maniya */
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 
 /* Pratik Boghani */
@@ -15,20 +16,6 @@
 .active {
   background-color: #f04f24;
   font-weight: bold;
-}
-
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #111317;
-  color: #fff;
-  text-align: center;
-  padding: 1px 0;
-}
-
-.text-center {
-  text-align: center;
 }
 
 .init-button {
@@ -67,22 +54,6 @@ form input[type="submit"]:hover {
   background-color: #323744;
 }
 
-/*cart*/
-
-.btn {
-  display: inline-block;
-  padding: 8px 16px;
-  text-align: center;
-  text-decoration: none;
-  background-color: #111317;
-  color: #fff;
-  border: 1px solid #111317;
-}
-
-.btn:hover {
-  background-color: #111317;
-}
-
 /*Checkout*/
 /* Checkout Summary Styles */
 
@@ -110,7 +81,12 @@ table td strong {
   font-weight: bold;
 }
 
+/* Ankit Maniya */
 /* bootstrap override */
+
+.font-Pacifico {
+  font-family: "Pacifico", cursive;
+}
 
 .navbar-brand {
   font-weight: bold;

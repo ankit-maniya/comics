@@ -17,25 +17,46 @@ function isActiveTab($currentTab, $expectedTab)
         <div class="collapse navbar-collapse mt-2" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "home"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>">Home</a>
+                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "home"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>">
+                        <i class="bi bi-house-door"></i>
+                        Home
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "comics"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/comics.php">Comics</a>
+                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "comics"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/comics.php">
+                        <i class="bi bi-book"></i>
+                        Comics
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "checkout"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/checkout.php">Checkout</a>
+                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "checkout"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/checkout.php">
+                        <i class="bi bi-bag-check"></i>
+                        Checkout
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "cart"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/cart.php">Cart</a>
+                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "cart"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/cart.php">
+                        <i class="bi bi-cart-check"></i>
+                        Cart
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "login"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/login.php">Login</a>
+                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "login"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/login.php">
+                        <i class="bi bi-person-circle"></i>
+                        Login
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "admin-all-comics"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/admin/comics/">Comics</a>
+                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "admin-all-comics"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/admin/comics/">
+                        <i class="bi bi-book-half"></i>
+                        Comics
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "admin-all-genres"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/admin/genres/">Genres</a>
+                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "admin-all-genres"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/admin/genres/">
+                        <i class="bi bi-card-list"></i>
+                        Genres
+                    </a>
                 </li>
             </ul>
         </div>

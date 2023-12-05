@@ -37,8 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="submit" class="init-button" value="Initialize Database">
         </form>
     </div>
-    <footer>
-        <div class="text-center">
+    <footer class="position-fixed bottom-0 w-100 text-center bg-hevy-dark text-white">
+        <div class="my-1 py-1 font-Pacifico">
             Developed by Duel Ninja - Comics Group - 2023
         </div>
     </footer>

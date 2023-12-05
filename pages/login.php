@@ -2,7 +2,7 @@
 <html>
 
 <?php
-require('../database/db_user.php');
+require_once('../database/db_user.php');
 require_once('../configs/Path.php');
 require_once('../helpers/ImageHandler.php');
 require_once('./components/header.php');
@@ -27,7 +27,7 @@ $isSignupFormSubmitted = ($showSignupForm && $_SERVER["REQUEST_METHOD"] == "POST
     </header>
     <?php
     $activeTab = "login";
-    include_once './components/navbar.php';
+    require_once('./components/navbar.php');
     ?>
 
     <div class="text-center mt-2 mb-5">
@@ -90,7 +90,7 @@ $isSignupFormSubmitted = ($showSignupForm && $_SERVER["REQUEST_METHOD"] == "POST
         <?php endif; ?>
     </div>
     <?php
-    include_once './components/footer.php';
+    require_once('./components/footer.php');
     ?>
 </body>
 
