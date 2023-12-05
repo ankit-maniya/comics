@@ -22,7 +22,7 @@ $isSignupFormSubmitted = ($showSignupForm && $_SERVER["REQUEST_METHOD"] == "POST
 ?>
 
 <body>
-    <header>
+    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
         Comics Store - Login Page
     </header>
     <?php
@@ -30,10 +30,10 @@ $isSignupFormSubmitted = ($showSignupForm && $_SERVER["REQUEST_METHOD"] == "POST
     include_once './components/navbar.php';
     ?>
 
-    <div class="my-container mb-5">
+    <div class="text-center mt-2 mb-5">
         <h1><?php echo $showLoginForm ? 'Login' : 'Sign Up'; ?></h1>
-        
-        <?php if ($showLoginForm): ?>
+
+        <?php if ($showLoginForm) : ?>
             <form method="post" action="authenticate.php">
                 <label for="login_email">Email:</label>
                 <input type="text" id="login_email" name="login_email"><br><br>
@@ -48,15 +48,15 @@ $isSignupFormSubmitted = ($showSignupForm && $_SERVER["REQUEST_METHOD"] == "POST
                 <input type="submit" value="Don't have an account? Sign Up here">
             </form>
         <?php endif; ?>
-        
-        <?php if ($showSignupForm): ?>
-            <?php if (!empty($errorMessage)): ?>
-            <p style="color: red;"><?php echo $errorMessage; ?></p>
-        <?php endif; ?>
 
-        <?php if (!empty($successMessage)): ?>
-            <p style="color: green;"><?php echo $successMessage; ?></p>
-        <?php endif; ?>
+        <?php if ($showSignupForm) : ?>
+            <?php if (!empty($errorMessage)) : ?>
+                <p style="color: red;"><?php echo $errorMessage; ?></p>
+            <?php endif; ?>
+
+            <?php if (!empty($successMessage)) : ?>
+                <p style="color: green;"><?php echo $successMessage; ?></p>
+            <?php endif; ?>
             <form method="post" action="authenticate.php">
                 <?php
                 if ($isSignupFormSubmitted) {

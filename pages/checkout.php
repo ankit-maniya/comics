@@ -15,8 +15,8 @@ $cartItems = $_SESSION['cart'] ?? [];
 ?>
 
 <body>
-    <header>
-        Comics Store - Comics
+    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
+        Comics Store - Checkout
     </header>
 
     <?php
@@ -24,7 +24,7 @@ $cartItems = $_SESSION['cart'] ?? [];
     include_once './components/navbar.php';
     ?>
 
-    <div class="my-container">
+    <div class="text-center mt-2">
 
         <!-- Order summary -->
         <h2>Your Order</h2>

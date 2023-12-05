@@ -1,4 +1,3 @@
-
 <?php
 // Ankit Maniya
 $msg = null;
@@ -23,10 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <header>
+    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
         Initialize Database
     </header>
-    <div class="my-container text-center">
+    <div class="text-center">
         <?php
 
         if ($msg) {
@@ -39,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
     <footer>
-        <div class="my-container">
+        <div class="text-center">
             Developed by Duel Ninja - Comics Group - 2023
         </div>
     </footer>

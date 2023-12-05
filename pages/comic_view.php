@@ -48,12 +48,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 ?>
 
 <body>
-    <header>
-        Comics Store - Comics
+    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
+        Comics Store - Comics Detail View
     </header>
 
     <?php
-    
+
     $activeTab = "comics";
     require_once('./components/navbar.php');
     ?>
@@ -120,9 +120,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     ?>
     <?php
     require_once('./components/footer.php');
-    
+
     ?>
-    
+
 </body>
 
 </html>

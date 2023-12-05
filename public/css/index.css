@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
 /* Pratik Boghani */
 * {
   margin: 0;
@@ -6,56 +8,20 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-header {
-  background-color: #333;
-  color: #fff;
-  padding: 10px 0;
-  font-size: 2rem;
-  text-align: center;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-nav {
-  background-color: #444;
-  padding: 0.5rem 0;
-}
-.my-container {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 0 20px;
+.bg-hevy-dark {
+  background-color: #111317;
 }
 
-.my-container h2 {
-  margin-top: 50px;
-  text-align: center;
-  font-size: 3em;
-}
-
-nav ul {
-  list-style-type: none;
-  text-align: center;
-}
-nav ul li {
-  display: inline;
-  margin: 0 15px;
-  padding: 15px 15px;
-}
 .active {
-  background-color: #333;
+  background-color: #f04f24;
   font-weight: bold;
-}
-nav ul li:hover {
-  background-color: #333;
-}
-nav ul li a {
-  text-decoration: none;
-  color: #fff;
 }
 
 footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: #333;
+  background-color: #111317;
   color: #fff;
   text-align: center;
   padding: 1px 0;
@@ -92,13 +58,13 @@ form input[type="submit"] {
   margin-bottom: 10px;
 }
 form input[type="submit"] {
-  background-color: #333;
+  background-color: #111317;
   color: #fff;
   border: none;
   cursor: pointer;
 }
 form input[type="submit"]:hover {
-  background-color: #444;
+  background-color: #323744;
 }
 
 /*cart*/
@@ -108,26 +74,17 @@ form input[type="submit"]:hover {
   padding: 8px 16px;
   text-align: center;
   text-decoration: none;
-  background-color: #333;
+  background-color: #111317;
   color: #fff;
-  border: 1px solid #333;
+  border: 1px solid #111317;
 }
 
 .btn:hover {
-  background-color: #333;
-}
-
-.my-container a {
-  margin-right: 10px;
+  background-color: #111317;
 }
 
 /*Checkout*/
-
 /* Checkout Summary Styles */
-.my-container h2 {
-  text-align: center;
-  font-size: 3em;
-}
 
 table {
   width: 100%;
@@ -151,4 +108,54 @@ table td {
 
 table td strong {
   font-weight: bold;
+}
+
+/* bootstrap override */
+
+.navbar-brand {
+  font-weight: bold;
+  color: #ffffff;
+  font-size: xx-large;
+  font-family: "Pacifico", cursive;
+}
+
+.navbar-brand:hover {
+  color: #f04f24;
+}
+
+.bg-body-tertiary:hover,
+.bg-body-tertiary:focus,
+.bg-body-tertiary:active {
+  color: #323744;
+  background-color: #f04f24;
+}
+
+.navbar-nav .nav-link {
+  color: #fff;
+}
+
+.nav-link.disabled,
+.nav-link:disabled {
+  color: #ffffffc8;
+}
+
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.show {
+  color: #fff;
+}
+
+.navbar:hover,
+.navbar:focus,
+.navbar:active {
+  background-color: #ffffff;
+}
+
+.navbar-toggler,
+.navbar-toggler-icon {
+  color: #f04f24;
+  background-color: #ffffff;
+}
+
+.bg-body-tertiary {
+  background-color: #323744 !important;
 }

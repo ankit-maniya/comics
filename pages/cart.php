@@ -15,7 +15,7 @@ $cartItems = $_SESSION['cart'] ?? [];
 ?>
 
 <body>
-    <header>
+    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
         Comics Store - Cart Page
     </header>
 

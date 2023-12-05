@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 ?>
 
 <body>
-    <header>
+    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
         Admin All Genres
     </header>
 

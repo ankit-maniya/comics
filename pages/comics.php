@@ -10,7 +10,7 @@ require_once('./components/header.php');
 ?>
 
 <body>
-    <header>
+    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
         Comics Store - Comics
     </header>
 
@@ -23,22 +23,22 @@ require_once('./components/header.php');
         <div class="row">
             <!-- Sidebar -->
             <div class="col-md-3">
-    <h2>Genres</h2>
-    <ul class="list-group">
-        <?php
-        $genreDB = new Genre();
-       
+                <h2>Genres</h2>
+                <ul class="list-group">
+                    <?php
+                    $genreDB = new Genre();
 
-        if (isset($genres) && count($genres) > 0) {
-            foreach ($genres as $genre) {
-                echo "<li class='list-group-item'><a href='#'>{$genre['genre_name']}</a></li>";
-            }
-        } else {
-            echo "<li class='list-group-item'>No genres found</li>";
-        }
-        ?>
-    </ul>
-</div>
+
+                    if (isset($genres) && count($genres) > 0) {
+                        foreach ($genres as $genre) {
+                            echo "<li class='list-group-item'><a href='#'>{$genre['genre_name']}</a></li>";
+                        }
+                    } else {
+                        echo "<li class='list-group-item'>No genres found</li>";
+                    }
+                    ?>
+                </ul>
+            </div>
 
             <!-- Main Content -->
             <div class="col-md-9">
