@@ -15,19 +15,19 @@ $cartItems = $_SESSION['cart'] ?? [];
 ?>
 
 <body>
-    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
-        Comics Store - Checkout
-    </header>
-
     <?php
     $activeTab = "checkout";
     include_once './components/navbar.php';
     ?>
 
+    <header class="bg-light-dark fs-3 text-white py-2 text-center mb-3">
+        Comics Store - Checkout
+    </header>
+
     <div class="text-center mt-2">
 
         <!-- Order summary -->
-        <h2>Your Order</h2>
+        <h2 class="text-white">Your Order</h2>
         <table>
             <tr>
                 <th>Product</th>

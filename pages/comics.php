@@ -10,20 +10,19 @@ require_once('./components/header.php');
 ?>
 
 <body>
-    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
-        Comics Store - Comics
-    </header>
-
     <?php
     $activeTab = "comics";
     require_once('./components/navbar.php');
     ?>
+    <header class="bg-light-dark fs-3 text-white py-2 text-center mb-3">
+        Comics Store - Comics
+    </header>
 
     <div class="container">
         <div class="row">
             <!-- Sidebar -->
             <div class="col-md-3">
-                <h2>Genres</h2>
+                <h2 class="text-white">Genres</h2>
                 <ul class="list-group">
                     <?php
                     $genreDB = new Genre();
@@ -42,7 +41,7 @@ require_once('./components/header.php');
 
             <!-- Main Content -->
             <div class="col-md-9">
-                <h1 class="text-center">Welcome to Comics</h1>
+                <h2 class="text-white">All Comics</h1>
                 <div class="row m-0 g-2 mb-5 pb-4">
                     <?php
                     $sql = new DBMaster();

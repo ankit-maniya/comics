@@ -122,7 +122,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <body>
-    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
+
+
+    <?php
+    $activeTab = "admin-all-comics";
+    require_once('../../components/navbar.php');
+    ?>
+
+    <header class="bg-light-dark fs-3 text-white py-2 text-center mb-3">
         Admin
         <?php
         if ($isUpdate) {
@@ -134,171 +141,168 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         Comics
     </header>
 
-    <?php
-    $activeTab = "admin-all-comics";
-    require_once('../../components/navbar.php');
-    ?>
-
-    <div class="container my-5">
-        <form id="add_comics" name="add_comics" method="post" action="add_comics.php" enctype="multipart/form-data">
-            <?php
-            if ($isUpdate) {
-            ?>
-                <input type="hidden" class="form-control" id="comic_id" name="comic_id" value='<?php echo isset($_GET['comic_id']) ? $_GET['comic_id'] : 0 ?>' />
-            <?php
-            }
-            ?>
-            <div class="mb-3">
-                <label for="comic_title" class="form-label">Comic Title</label>
-                <input type="text" class="form-control" id="comic_title" name="comic_title" value='<?php echo isset($inputs["comic_title"]) ? $inputs["comic_title"] : "" ?>' />
-                <?php
-                if (isset($errors) && key_exists('comic_title', $errors)) {
-                ?>
-                    <div class="alert alert-danger" role="">
-                        <?php echo $errors['comic_title'] ?>
-                    </div>
-                <?php
-                }
-                ?>
-            </div>
-
-            <div class="mb-3">
-                <label for="genre_id" class="form-label">Genre</label>
-                <select class="form-select" id="genre_id" name="genre_id">
-                    <option selected value="">Select Genere</option>
-                    <?php
-                    $sql = new DBMaster();
-                    $serial_no = 0;
-                    $selectedGenreId = isset($inputs["genre_id"]) ? $inputs["genre_id"] : null;
-                    $sql->execute("select * from tbl_genres")->forEach(function ($serial_no, $row) use ($selectedGenreId) {
-                        $genreId = $row["genre_id"];
-                        $genreName = $row["genre_name"];
-                        $selectedStr = "";
-                        if ($genreId == $selectedGenreId) {
-                            $selectedStr = " selected";
-                        }
-                        echo "<option value='$genreId' $selectedStr>$genreName</option>";
-                    });
-                    ?>
-                </select>
-                <?php
-                if (isset($errors) && key_exists('genre_id', $errors)) {
-                ?>
-                    <div class="alert alert-danger mt-1" role="alert">
-                        <?php echo $errors['genre_id'] ?>
-                    </div>
-                <?php
-                }
-                ?>
-            </div>
-
-            <div class="mb-3">
-                <label for="comic_price" class="form-label">Comic Price</label>
-                <input type="number" class="form-control" id="comic_price" name="comic_price" value='<?php echo isset($inputs["comic_price"]) ? $inputs["comic_price"] : "" ?>' />
-                <?php
-                if (isset($errors) && key_exists('comic_price', $errors)) {
-                ?>
-                    <div class="alert alert-danger mt-1" role="alert">
-                        <?php echo $errors['comic_price'] ?>
-                    </div>
-                <?php
-                }
-                ?>
-            </div>
-
-            <div class="mb-3">
-                <label for="formFile" class="form-label">Comic Image</label>
-                <input class="form-control" type="file" id="comic_image" name="image">
+    <div class="container my-3 mb-5">
+        <div class="bg-hevy-dark p-5 rounded shadow-lg">
+            <form id="add_comics" name="add_comics" method="post" action="add_comics.php" enctype="multipart/form-data">
                 <?php
                 if ($isUpdate) {
                 ?>
-                    <input type="hidden" class="form-control" id="up_comic_image" name="up_comic_image" value='<?php echo isset($inputs["comic_image"]) ? $inputs["comic_image"] : "dummy_400_400.png" ?>' />
+                    <input type="hidden" class="form-control" id="comic_id" name="comic_id" value='<?php echo isset($_GET['comic_id']) ? $_GET['comic_id'] : 0 ?>' />
                 <?php
                 }
                 ?>
-                <?php
-                $imgUri = ImageHandler::getImgUri($inputs['comic_image']);
-                ?>
-                <img src='<?php echo $imgUri ?>' class='img-thumbnail' width='250px' alt='comics'>
-                <?php
-                if (isset($errors) && key_exists('comic_image', $errors)) {
-                ?>
-                    <div class="alert alert-danger mt-1" role="alert">
-                        <?php echo $errors['comic_image'] ?>
-                    </div>
-                <?php
-                }
-                ?>
-            </div>
+                <div class="mb-3">
+                    <label for="comic_title" class="form-label">Comic Title</label>
+                    <input type="text" class="form-control" id="comic_title" name="comic_title" value='<?php echo isset($inputs["comic_title"]) ? $inputs["comic_title"] : "" ?>' />
+                    <?php
+                    if (isset($errors) && key_exists('comic_title', $errors)) {
+                    ?>
+                        <div class="alert alert-danger" role="">
+                            <?php echo $errors['comic_title'] ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
+                </div>
 
-            <div class="mb-3">
-                <label for="comic_description" class="form-label">Comic Description</label>
-                <textarea class="form-control" rows="3" id="comic_description" name="comic_description"><?php echo isset($inputs["comic_description"]) ? $inputs["comic_description"] : "" ?></textarea>
+                <div class="mb-3">
+                    <label for="genre_id" class="form-label">Genre</label>
+                    <select class="form-select" id="genre_id" name="genre_id">
+                        <option selected value="">Select Genere</option>
+                        <?php
+                        $sql = new DBMaster();
+                        $serial_no = 0;
+                        $selectedGenreId = isset($inputs["genre_id"]) ? $inputs["genre_id"] : null;
+                        $sql->execute("select * from tbl_genres")->forEach(function ($serial_no, $row) use ($selectedGenreId) {
+                            $genreId = $row["genre_id"];
+                            $genreName = $row["genre_name"];
+                            $selectedStr = "";
+                            if ($genreId == $selectedGenreId) {
+                                $selectedStr = " selected";
+                            }
+                            echo "<option value='$genreId' $selectedStr>$genreName</option>";
+                        });
+                        ?>
+                    </select>
+                    <?php
+                    if (isset($errors) && key_exists('genre_id', $errors)) {
+                    ?>
+                        <div class="alert alert-danger mt-1" role="alert">
+                            <?php echo $errors['genre_id'] ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
+                </div>
+
+                <div class="mb-3">
+                    <label for="comic_price" class="form-label">Comic Price</label>
+                    <input type="number" class="form-control" id="comic_price" name="comic_price" value='<?php echo isset($inputs["comic_price"]) ? $inputs["comic_price"] : "" ?>' />
+                    <?php
+                    if (isset($errors) && key_exists('comic_price', $errors)) {
+                    ?>
+                        <div class="alert alert-danger mt-1" role="alert">
+                            <?php echo $errors['comic_price'] ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
+                </div>
+
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Comic Image</label>
+                    <input class="form-control" type="file" id="comic_image" name="image">
+                    <?php
+                    if ($isUpdate) {
+                    ?>
+                        <input type="hidden" class="form-control" id="up_comic_image" name="up_comic_image" value='<?php echo isset($inputs["comic_image"]) ? $inputs["comic_image"] : "dummy_400_400.png" ?>' />
+                    <?php
+                    }
+                    ?>
+                    <?php
+                    $imgUri = ImageHandler::getImgUri($inputs['comic_image']);
+                    ?>
+                    <img src='<?php echo $imgUri ?>' class='img-thumbnail mt-3' width='250px' alt='comics'>
+                    <?php
+                    if (isset($errors) && key_exists('comic_image', $errors)) {
+                    ?>
+                        <div class="alert alert-danger mt-1" role="alert">
+                            <?php echo $errors['comic_image'] ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
+                </div>
+
+                <div class="mb-3">
+                    <label for="comic_description" class="form-label">Comic Description</label>
+                    <textarea class="form-control" rows="3" id="comic_description" name="comic_description"><?php echo isset($inputs["comic_description"]) ? $inputs["comic_description"] : "" ?></textarea>
+                    <?php
+                    if (isset($errors) && key_exists('comic_description', $errors)) {
+                    ?>
+                        <div class="alert alert-danger mt-1" role="alert">
+                            <?php echo $errors['comic_description'] ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
+                </div>
+
+                <div class="mb-3">
+                    <label for="comic_stock_quantity" class="form-label">Stock Quntity</label>
+                    <input type="number" class="form-control" id="comic_stock_quantity" name="comic_stock_quantity" value='<?php echo isset($inputs["comic_stock_quantity"]) ? $inputs["comic_stock_quantity"] : 0 ?>' />
+                    <?php
+                    if (isset($errors) && key_exists('comic_stock_quantity', $errors)) {
+                    ?>
+                        <div class="alert alert-danger mt-1" role="alert">
+                            <?php echo $errors['comic_stock_quantity'] ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
+                </div>
+
+                <div class="mb-3">
+                    <label for="comic_author_name" class="form-label">Author Name</label>
+                    <input type="text" class="form-control" id="comic_author_name" name="comic_author_name" value='<?php echo isset($inputs["comic_author_name"]) ? $inputs["comic_author_name"] : 0 ?>' />
+                    <?php
+                    if (isset($errors) && key_exists('comic_author_name', $errors)) {
+                    ?>
+                        <div class="alert alert-danger mt-1" role="alert">
+                            <?php echo $errors['comic_author_name'] ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
+                </div>
+
+                <div class="mb-3">
+                    <label for="comic_author_email" class="form-label">Author Email</label>
+                    <input type="email" class="form-control" id="comic_author_email" name="comic_author_email" value='<?php echo isset($inputs["comic_author_email"]) ? $inputs["comic_author_email"] : 0 ?>' />
+                    <?php
+                    if (isset($errors) && key_exists('comic_author_email', $errors)) {
+                    ?>
+                        <div class="alert alert-danger mt-1" role="alert">
+                            <?php echo $errors['comic_author_email'] ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
+                </div>
+
                 <?php
-                if (isset($errors) && key_exists('comic_description', $errors)) {
+                if ($isUpdate) {
                 ?>
-                    <div class="alert alert-danger mt-1" role="alert">
-                        <?php echo $errors['comic_description'] ?>
-                    </div>
+                    <button type="submit" value="update_comics_submit" name="update_comics_submit" class="btn btn-warning">Update</button>
+                <?php
+                } else {
+                ?>
+                    <button type="submit" value="add_comics_submit" name="add_comics_submit" class="btn btn-orange">Submit</button>
                 <?php
                 }
                 ?>
-            </div>
-
-            <div class="mb-3">
-                <label for="comic_stock_quantity" class="form-label">Stock Quntity</label>
-                <input type="number" class="form-control" id="comic_stock_quantity" name="comic_stock_quantity" value='<?php echo isset($inputs["comic_stock_quantity"]) ? $inputs["comic_stock_quantity"] : 0 ?>' />
-                <?php
-                if (isset($errors) && key_exists('comic_stock_quantity', $errors)) {
-                ?>
-                    <div class="alert alert-danger mt-1" role="alert">
-                        <?php echo $errors['comic_stock_quantity'] ?>
-                    </div>
-                <?php
-                }
-                ?>
-            </div>
-
-            <div class="mb-3">
-                <label for="comic_author_name" class="form-label">Author Name</label>
-                <input type="text" class="form-control" id="comic_author_name" name="comic_author_name" value='<?php echo isset($inputs["comic_author_name"]) ? $inputs["comic_author_name"] : 0 ?>' />
-                <?php
-                if (isset($errors) && key_exists('comic_author_name', $errors)) {
-                ?>
-                    <div class="alert alert-danger mt-1" role="alert">
-                        <?php echo $errors['comic_author_name'] ?>
-                    </div>
-                <?php
-                }
-                ?>
-            </div>
-
-            <div class="mb-3">
-                <label for="comic_author_email" class="form-label">Author Email</label>
-                <input type="email" class="form-control" id="comic_author_email" name="comic_author_email" value='<?php echo isset($inputs["comic_author_email"]) ? $inputs["comic_author_email"] : 0 ?>' />
-                <?php
-                if (isset($errors) && key_exists('comic_author_email', $errors)) {
-                ?>
-                    <div class="alert alert-danger mt-1" role="alert">
-                        <?php echo $errors['comic_author_email'] ?>
-                    </div>
-                <?php
-                }
-                ?>
-            </div>
-
-            <?php
-            if ($isUpdate) {
-            ?>
-                <button type="submit" value="update_comics_submit" name="update_comics_submit" class="btn btn-warning">Update</button>
-            <?php
-            } else {
-            ?>
-                <button type="submit" value="add_comics_submit" name="add_comics_submit" class="btn btn-primary">Submit</button>
-            <?php
-            }
-            ?>
-        </form>
+            </form>
+        </div>
     </div>
 
     <?php
