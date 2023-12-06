@@ -57,47 +57,76 @@ $cartItems = $_SESSION['cart'] ?? [];
             </tr>
         </table>
 
-
         <!-- Form for capturing user details -->
-        <form method="POST" action="purchase.php">
-            <h2>Billing Information</h2>
-            <label for="firstname">First Name:</label>
-            <input type="text" id="firstname" name="firstname" required><br><br>
+        <div class="container my-5">
+            <div class="bg-hevy-dark p-5 rounded shadow-lg">
+                <h2 class="mb-3">Billing Information</h2>
+                <form class="text-dark" method="POST" action="purchase.php">
 
-            <label for="lastname">Last Name:</label>
-            <input type="text" id="lastname" name="lastname" required><br><br>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="firstname" name="firstname" value="" placeholder="">
+                        <label for="firstname">First Name</label>
+                    </div>
 
-            <label for="company">Company Name:</label>
-            <input type="text" id="company" name="company"><br><br>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="lastname" name="lastname" value="" placeholder="">
+                        <label for="lastname">Last Name</label>
+                    </div>
 
-            <label for="country">Country / Region:</label>
-            <input type="text" id="country" name="country" value="Canada" disabled><br><br>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="company" name="company" value="" placeholder="">
+                        <label for="company">Company Name</label>
+                    </div>
 
-            <label for="street">Street Address:</label>
-            <input type="text" id="street" name="street" required><br><br>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="country" name="country" value="" placeholder="">
+                        <label for="country">Country / Region</label>
+                    </div>
 
-            <label for="apartment">Apartment, Suite, Unit, etc.:</label>
-            <input type="text" id="apartment" name="apartment"><br><br>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="street" name="street" value="" placeholder="">
+                        <label for="street">Street Address</label>
+                    </div>
 
-            <label for="city">Town / City:</label>
-            <input type="text" id="city" name="city" required><br><br>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="apartment" name="apartment" value="" placeholder="">
+                        <label for="apartment">Apartment, Suite, Unit, etc.</label>
+                    </div>
 
-            <label for="province">Province:</label>
-            <input type="text" id="province" name="province" value="Ontario" disabled><br><br>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="city" name="city" value="" placeholder="">
+                        <label for="city">City</label>
+                    </div>
 
-            <label for="postalcode">Postal Code:</label>
-            <input type="text" id="postalcode" name="postalcode" required><br><br>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="province" name="province" value="Ontario" placeholder="">
+                        <label for="province">Province</label>
+                    </div>
 
-            <label for="phone">Phone:</label>
-            <input type="tel" id="phone" name="phone" required><br><br>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="postalcode" name="postalcode" placeholder="+1 226-888-5555">
+                        <label for="postalcode">Postal Code</label>
+                    </div>
 
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" name="email" required><br><br>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="+1 226-888-5555">
+                        <label for="phone">Phone</label>
+                    </div>
 
-            <!-- Other input fields for payment details, etc. -->
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+                        <label for="email">Email address</label>
+                    </div>
 
-            <input type="submit" value="Place Order">
-        </form>
+                    <!-- Other input fields for payment details, etc. -->
+
+                    <div class="d-grid gap-2 col-12 mx-auto">
+                        <button class="btn btn-orange btn-lg" type="submit" value="order_submit">Place Order</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
     </div>
 
     <?php
