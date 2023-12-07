@@ -40,6 +40,11 @@ $isSignupFormSubmitted = ($showSignupForm && $_SERVER["REQUEST_METHOD"] == "POST
             </h1>
 
             <?php if ($showLoginForm) : ?>
+                <?php
+                if ($errorMessage) {
+                    echo $errorMessage;
+                }
+                ?>
                 <form class="text-dark" method="post" action="authenticate.php">
                     <div class="form-floating mb-3">
                         <input type="email" class="form-control" id="login_email" name="login_email" placeholder="name@example.com">
@@ -64,22 +69,24 @@ $isSignupFormSubmitted = ($showSignupForm && $_SERVER["REQUEST_METHOD"] == "POST
             <?php endif; ?>
 
             <?php if ($showSignupForm) : ?>
-                <?php if (!empty($errorMessage)) : ?>
-                    <p style="color: red;"><?php echo $errorMessage; ?></p>
-                <?php endif; ?>
+                <?php
+                if ($errorMessage) {
+                    echo $errorMessage;
+                }
+                ?>
 
                 <?php if (!empty($successMessage)) : ?>
                     <p style="color: green;"><?php echo $successMessage; ?></p>
                 <?php endif; ?>
 
-                <form class="text-dark" method="post" action="authenticate.php">
+                <form class="text-dark" method="post" action="register.php">
                     <?php
                     if ($isSignupFormSubmitted) {
                         echo implode('', $user->getErrors());
                     }
                     ?>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="user_name" name="user_name" placeholder="name@example.com">
+                        <input type="text" class="form-control" id="user_name" name="user_name">
                         <label for="user_name">Username</label>
                     </div>
                     <div class="form-floating mb-3">

@@ -4,16 +4,12 @@ require_once(__DIR__  . '/db_master.php');
 class User
 {
     protected $user_id;
-    protected $user_name;
+    protected $user_username;
     protected $user_type;
     protected $user_password;
     protected $user_email;
 
-    protected $login_email;
-    protected $login_password;
-
     protected $errors = [];
-    protected $login_errors = [];
 
     function getErrors()
     {
@@ -22,16 +18,6 @@ class User
     function cleanErrors()
     {
         $this->errors = [];
-    }
-
-    function getLoginErrors()
-    {
-        return $this->login_errors;
-    }
-
-    function cleanLoginErrors()
-    {
-        $this->login_errors = [];
     }
 
     function getUserId()
@@ -47,13 +33,13 @@ class User
 
     function getName()
     {
-        return $this->user_name;
+        return $this->user_username;
     }
-    function setName($user_name)
+    function setName($user_username)
     {
-        $this->user_name = trim(htmlspecialchars($user_name));
-        if (empty($this->user_name)) {
-            $this->errors["user_name"] = "<p>Name is required.</p>";
+        $this->user_username = trim(htmlspecialchars($user_username));
+        if (empty($this->user_username)) {
+            $this->errors["user_username"] = "<p>User Name is required.</p>";
         }
     }
     function getEmail()
@@ -96,50 +82,24 @@ class User
             $this->errors["user_password"] = "<p>Password is required.</p>";
         }
     }
-    function getLoginEmail()
-    {
-        return $this->login_email;
-    }
 
-    function setLoginEmail($email)
-    {
-        $this->email = trim(htmlspecialchars($email));
-        if (empty($this->email)) {
-            $this->errors["login_email"] = "<p>Email is required.</p>";
-        }
-    }
-
-    function getLoginPassword()
-    {
-        return $this->login_password;
-    }
-
-    function setLoginPassword($password)
-    {
-        $this->password = trim(htmlspecialchars($password));
-        if (empty($this->password)) {
-            $this->errors["login_password"] = "<p>Password is required.</p>";
-        }
-    }
     function __construct($properties = [])
     {
         if (isset($properties["user_id"])) $this->setUserId($properties["user_id"]);
-        if (isset($properties["user_name"])) $this->setName($properties["user_name"]);
+        if (isset($properties["user_username"])) $this->setName($properties["user_username"]);
         if (isset($properties["user_email"])) $this->setEmail($properties["user_email"]);
         if (isset($properties["user_type"])) $this->setType($properties["user_type"]);
         if (isset($properties["user_password"])) $this->setPassword($properties["user_password"]);
-        if (isset($properties["login_email"])) $this->setLoginEmail($properties["login_email"]);
-        if (isset($properties["login_password"])) $this->setLoginPassword($properties["login_password"]);
     }
 
     function insert()
     {
         $sql = new DBMaster();
         $hashedPassword = password_hash($this->user_password, PASSWORD_DEFAULT);
-        $sql->sqlStatement("insert into tbl_users (user_name, user_email, user_type, user_password) values(:user_name, :user_email, :user_type, :user_password)")
+        $sql->sqlStatement("insert into tbl_users (user_username, user_email, user_type, user_password) values(:user_username, :user_email, :user_type, :user_password)")
             ->params([
-                
-                "user_name" => $this->user_name,
+
+                "user_username" => $this->user_username,
                 "user_email" => $this->user_email,
                 "user_type" => $this->user_type,
                 "user_password" => $hashedPassword,
@@ -153,23 +113,23 @@ class User
     {
         $sql = new DBMaster();
         $user_data = $sql->sqlStatement("SELECT * FROM tbl_users WHERE user_email = :user_email")
-            ->params(["user_email" => $this->login_email])
+            ->params(["user_email" => $this->user_email])
+            ->execute()
             ->fetchOne();
 
-        if ($user_data && password_verify($this->login_password, $user_data['user_password'])) {
-        
-            session_start();
-            $_SESSION['user_id'] = $user_data['user_id'];
-            $_SESSION['user_name'] = $user_data['user_name'];
-            $_SESSION['user_type'] = $user_data['user_type'];
+        if ($user_data) {
+            if (password_verify($this->user_password, $user_data['user_password'])) {
 
-            header("Location: ../index.php");
-            exit();
+                session_start();
+                $_SESSION['user_id'] = $user_data['user_id'];
+                $_SESSION['user_username'] = $user_data['user_username'];
+                $_SESSION['user_type'] = $user_data['user_type'];
+            } else {
+                $this->errors["user_password"] = "User Password Not Matched!";
+            }
         } else {
-            $this->login_errors["login"] = "<p>Invalid email or password.</p>";
+            $this->errors["user_email"] = "User Not Found";
         }
     }
-    
-    
 }
 ?>
