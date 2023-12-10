@@ -7,7 +7,9 @@ include_once './components/header.php';
 require_once('../helpers/ImageHandler.php');
 require_once('../database/db_comics.php');
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Retrieving cart items stored in the session
 $cartItems = $_SESSION['cart'] ?? [];

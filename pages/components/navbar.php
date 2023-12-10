@@ -1,5 +1,8 @@
 <!-- Ankit Maniya -->
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 $currActiveTab = isset($activeTab) ? $activeTab  : "home";
 function isActiveTab($currentTab, $expectedTab)
@@ -40,24 +43,52 @@ function isActiveTab($currentTab, $expectedTab)
                         Cart
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "login"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/login.php">
-                        <i class="bi bi-person-circle"></i>
-                        Login
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "admin-all-comics"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/admin/comics/">
-                        <i class="bi bi-book-half"></i>
-                        Comics
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "admin-all-genres"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/admin/genres/">
-                        <i class="bi bi-card-list"></i>
-                        Genres
-                    </a>
-                </li>
+                <?php
+                if (empty($_SESSION["user_type"])) {
+                ?>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo isActiveTab($currActiveTab, "login"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/login.php">
+                            <i class="bi bi-person-circle"></i>
+                            Login
+                        </a>
+                    </li>
+                <?php
+                }
+                ?>
+
+                <?php
+                if ($_SESSION["user_type"] == "Admin") {
+                ?>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo isActiveTab($currActiveTab, "admin-all-comics"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/admin/comics/">
+                            <i class="bi bi-book-half"></i>
+                            Comics
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo isActiveTab($currActiveTab, "admin-all-genres"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/admin/genres/">
+                            <i class="bi bi-card-list"></i>
+                            Genres
+                        </a>
+                    </li>
+                <?php
+                }
+                ?>
+
+                <?php
+                if (!empty($_SESSION["user_type"])) {
+                ?>
+                    <li class="nav-item dropdown dropstart">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <?php echo $_SESSION["user_username"]; ?>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="<?php echo Path::getDomainUri(); ?>pages/logout.php">Logout</a></li>
+                        </ul>
+                    </li>
+                <?php
+                }
+                ?>
             </ul>
         </div>
     </div>

@@ -119,7 +119,7 @@ class User
 
         if ($user_data) {
             if (password_verify($this->user_password, $user_data['user_password'])) {
-
+                session_regenerate_id();
                 session_start();
                 $_SESSION['user_id'] = $user_data['user_id'];
                 $_SESSION['user_username'] = $user_data['user_username'];
@@ -129,6 +129,50 @@ class User
             }
         } else {
             $this->errors["user_email"] = "User Not Found";
+        }
+    }
+
+    public static function isAdmin()
+    {
+        if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "Admin") {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function redirectIfLoggedIn()
+    {
+        if (!empty($_SESSION["user_id"])) {
+            header("Location: index.php");
+            exit();
+        }
+    }
+
+    public static function logout()
+    {
+
+        session_unset();
+        if (session_status() == PHP_SESSION_ACTIVE) {
+            session_destroy();
+        }
+        session_start();
+        $_SESSION['user_id'] = null;
+        $_SESSION['user_username'] = null;
+        $_SESSION['user_type'] = null;
+
+        setcookie('PHPSESSID', '', time() - 3600, '/', 0, 0);
+
+        print_r($_SESSION);
+        header("Location: login.php");
+        exit();
+    }
+
+    public static function redirectIfNotLoggedIn()
+    {
+        if (empty($_SESSION["user_id"])) {
+            header("Location: login.php");
+            exit();
         }
     }
 }
