@@ -11,7 +11,7 @@ function isActiveTab($currentTab, $expectedTab)
 }
 
 ?>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container-fluid text-center">
         <a class="navbar-brand" href="#">Comico</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +44,7 @@ function isActiveTab($currentTab, $expectedTab)
                     </a>
                 </li>
                 <?php
-                if (empty($_SESSION["user_type"])) {
+                if (!isset($_SESSION["user_type"]) && empty($_SESSION["user_type"])) {
                 ?>
                     <li class="nav-item">
                         <a class="nav-link <?php echo isActiveTab($currActiveTab, "login"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/login.php">
@@ -57,7 +57,7 @@ function isActiveTab($currentTab, $expectedTab)
                 ?>
 
                 <?php
-                if ($_SESSION["user_type"] == "Admin") {
+                if (isset($_SESSION["user_type"]) && $_SESSION["user_type"] == "Admin") {
                 ?>
                     <li class="nav-item">
                         <a class="nav-link <?php echo isActiveTab($currActiveTab, "admin-all-comics"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/admin/comics/">
