@@ -48,15 +48,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 ?>
 
 <body>
-    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
-        Comics Store - Comics Detail View
-    </header>
 
     <?php
-
     $activeTab = "comics";
     require_once('./components/navbar.php');
     ?>
+
+    <header class="bg-light-dark fs-3 text-white py-2 text-center">
+        Comics Store - Comics Detail View
+    </header>
 
     <?php
     if (empty($comicsDetail['comic_title']) || is_null($comicsDetail['comic_title'])) {
