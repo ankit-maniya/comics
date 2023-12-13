@@ -46,7 +46,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_quantity'])) {
 
     <h2>Shopping Cart</h2>
         <?php
-<<<<<<< HEAD
         $cartItems = $cart->getCartItems();
         if (empty($cartItems)) {
             echo "<p>Your cart is empty.</p>";
