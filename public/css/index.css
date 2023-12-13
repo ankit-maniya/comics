@@ -1,3 +1,4 @@
+/* Ankit Maniya */
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 
 /* Pratik Boghani */
@@ -8,27 +9,49 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+html,
+body {
+  background-color: #282c37;
+  color: white;
+}
+
 .bg-hevy-dark {
   background-color: #111317;
+}
+
+.bg-light-dark {
+  background-color: #323744;
+}
+
+.bg-orange {
+  background-color: #f04f24;
+}
+
+.btn-orange {
+  color: #fff;
+  background-color: #f04f24;
+  border-color: #f04f24;
+}
+
+.btn-orange:hover {
+  color: #fff;
+  background-color: #d4401d;
+  border-color: #d4401d;
+}
+
+.btn-orange:focus {
+  box-shadow: 0 0 0 0.2rem rgba(240, 79, 36, 0.25);
+}
+
+.btn-orange:active {
+  color: #fff;
+  background-color: #d4401d;
+  border-color: #d4401d;
 }
 
 .active {
   background-color: #f04f24;
   font-weight: bold;
-}
-
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #111317;
-  color: #fff;
-  text-align: center;
-  padding: 1px 0;
-}
-
-.text-center {
-  text-align: center;
 }
 
 .init-button {
@@ -38,49 +61,6 @@ footer {
   border: none;
   padding: 0.5rem;
   border-radius: 0.5rem;
-}
-
-/* Login */
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-form label {
-  display: block;
-  margin-bottom: 5px;
-}
-form input[type="text"],
-form input[type="password"],
-form input[type="submit"] {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-}
-form input[type="submit"] {
-  background-color: #111317;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
-form input[type="submit"]:hover {
-  background-color: #323744;
-}
-
-/*cart*/
-
-.btn {
-  display: inline-block;
-  padding: 8px 16px;
-  text-align: center;
-  text-decoration: none;
-  background-color: #111317;
-  color: #fff;
-  border: 1px solid #111317;
-}
-
-.btn:hover {
-  background-color: #111317;
 }
 
 /*Checkout*/
@@ -110,7 +90,12 @@ table td strong {
   font-weight: bold;
 }
 
+/* Ankit Maniya */
 /* bootstrap override */
+
+.font-Pacifico {
+  font-family: "Pacifico", cursive;
+}
 
 .navbar-brand {
   font-weight: bold;
@@ -126,7 +111,7 @@ table td strong {
 .bg-body-tertiary:hover,
 .bg-body-tertiary:focus,
 .bg-body-tertiary:active {
-  color: #323744;
+  color: #111317;
   background-color: #f04f24;
 }
 
@@ -157,5 +142,13 @@ table td strong {
 }
 
 .bg-body-tertiary {
-  background-color: #323744 !important;
+  background-color: #111317 !important;
+}
+
+.img-height {
+  max-width: 100px;
+  max-height: 100px;
+  width: 100%;
+  border-radius: 50%;
+  object-fit: cover;
 }

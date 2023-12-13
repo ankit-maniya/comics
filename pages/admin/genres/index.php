@@ -38,14 +38,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 ?>
 
 <body>
-    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
-        Admin All Genres
-    </header>
 
     <?php
     $activeTab = "admin-all-genres";
     require_once('../../components/navbar.php');
     ?>
+
+    <header class="bg-light-dark fs-3 text-white py-2 text-center mb-3">
+        Admin All Genres
+    </header>
+
     <div class="container">
         <?php
         if (isset($errors) && key_exists('genre_id', $errors)) {
@@ -57,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         }
         ?>
         <a class='btn btn-primary my-2' href='add_genres.php' role='button'>Add Genre</a>
-        <div class="table-responsive">
+        <div class="table-responsive mb-5">
             <table class="table align-middle">
                 <thead class="table-dark">
                     <tr>

@@ -10,50 +10,48 @@ require_once('./components/header.php');
 ?>
 
 <body>
-    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
-        Comics Store - Comics
-    </header>
-
     <?php
     $activeTab = "comics";
     require_once('./components/navbar.php');
     ?>
+    <header class="bg-light-dark fs-3 text-white py-2 text-center mb-3">
+        Comics Store - Comics
+    </header>
+    <div class="container-fluid overflow-auto mx-2 mb-2">
+        <ul class="list-group list-group-horizontal flex-nowrap">
+
+            <?php
+            $sql = new DBMaster();
+            $serial_no = 0;
+            $sql->execute("select * from tbl_genres")->forEach(function ($serial_no, $row) {
+                $imgUri = ImageHandler::getImgUri($row['genre_image']);
+                $serial_no++;
+
+                echo "<li class='d-flex align-items-center flex-column'>
+                    <img src='{$imgUri}' alt='{$row['genre_name']}' class='img-height m-3 shadow'>
+                    <span><a href='#' class='text-white fw-bold text-decoration-none'>{$row['genre_name']}</a></span>
+                </li>";
+            });
+            ?>
+        </ul>
+    </div>
 
     <div class="container">
         <div class="row">
-            <!-- Sidebar -->
-            <div class="col-md-3">
-                <h2>Genres</h2>
-                <ul class="list-group">
-                    <?php
-                    $genreDB = new Genre();
-
-
-                    if (isset($genres) && count($genres) > 0) {
-                        foreach ($genres as $genre) {
-                            echo "<li class='list-group-item'><a href='#'>{$genre['genre_name']}</a></li>";
-                        }
-                    } else {
-                        echo "<li class='list-group-item'>No genres found</li>";
-                    }
-                    ?>
-                </ul>
-            </div>
-
             <!-- Main Content -->
-            <div class="col-md-9">
-                <h1 class="text-center">Welcome to Comics</h1>
-                <div class="row m-0 g-2 mb-5 pb-4">
-                    <?php
-                    $sql = new DBMaster();
-                    $serial_no = 0;
+            <div class="col-md-12">
+                <h2 class="text-white">All Comics</h1>
+                    <div class="row m-0 g-2 mb-5 pb-4">
+                        <?php
+                        $sql = new DBMaster();
+                        $serial_no = 0;
 
-                    // Fetch comics with associated genres
-                    $sql->execute("select * from tbl_genres JOIN tbl_comics ON tbl_genres.genre_id = tbl_comics.genre_id")->forEach(function ($serial_no, $row) {
-                        $serial_no++;
-                        $imgUri = ImageHandler::getImgUri($row['comic_image']);
+                        // Fetch comics with associated genres
+                        $sql->execute("select * from tbl_genres JOIN tbl_comics ON tbl_genres.genre_id = tbl_comics.genre_id")->forEach(function ($serial_no, $row) {
+                            $serial_no++;
+                            $imgUri = ImageHandler::getImgUri($row['comic_image']);
 
-                        echo "<div class='col-sm-4'>
+                            echo "<div class='col-sm-4'>
                             <div class='card'>
                                 <img src='{$imgUri}' class='card-img-top' alt='{$row['comic_title']}'>
                                 <div class='card-body'>
@@ -70,9 +68,9 @@ require_once('./components/header.php');
                                 </div>
                             </div>
                         </div>";
-                    });
-                    ?>
-                </div>
+                        });
+                        ?>
+                    </div>
             </div>
         </div>
     </div>

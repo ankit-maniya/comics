@@ -107,7 +107,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <body>
-    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
+    <?php
+    $activeTab = "admin-all-genres";
+    require_once('../../components/navbar.php');
+    ?>
+
+    <header class="bg-light-dark fs-3 text-white py-2 text-center mb-3">
         Admin
         <?php
         if ($isUpdate) {
@@ -119,81 +124,79 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         Genres
     </header>
 
-    <?php
-    $activeTab = "admin-all-genres";
-    require_once('../../components/navbar.php');
-    ?>
-
     <div class="container my-5">
-        <form id="add_genre" name="add_genre" method="post" action="add_genres.php" enctype="multipart/form-data">
-            <?php
-            if (isset($success)) {
-            ?>
-                <div class="alert alert-success" role="alert">
-                    <?php echo $success ?>
-                </div>
-            <?php
-            }
-            ?>
-
-            <?php
-            if ($isUpdate) {
-            ?>
-                <input type="hidden" class="form-control" id="genre_id" name="genre_id" value='<?php echo isset($_GET['genre_id']) ? $_GET['genre_id'] : 0 ?>' />
-            <?php
-            }
-            ?>
-            <div class="mb-3">
-                <label for="genre_name" class="form-label">Genre Title</label>
-                <input type="text" class="form-control" id="genre_name" name="genre_name" value='<?php echo isset($inputs["genre_name"]) ? $inputs["genre_name"] : "" ?>' />
+        <div class="bg-hevy-dark p-5 rounded shadow-lg">
+            <form id="add_genre" name="add_genre" method="post" action="add_genres.php" enctype="multipart/form-data">
                 <?php
-                if (isset($errors) && key_exists('genre_name', $errors)) {
+                if (isset($success)) {
                 ?>
-                    <div class="alert alert-danger" role="alert">
-                        <?php echo $errors['genre_name'] ?>
+                    <div class="alert alert-success" role="alert">
+                        <?php echo $success ?>
                     </div>
                 <?php
                 }
                 ?>
-            </div>
 
-            <div class="mb-3">
-                <label for="formFile" class="form-label">Genre Image</label>
-                <input class="form-control" type="file" id="genre_image" name="image">
                 <?php
                 if ($isUpdate) {
                 ?>
-                    <input type="hidden" class="form-control" id="up_genre_image" name="up_genre_image" value='<?php echo isset($inputs["genre_image"]) ? $inputs["genre_image"] : "dummy_400_400.png" ?>' />
+                    <input type="hidden" class="form-control" id="genre_id" name="genre_id" value='<?php echo isset($_GET['genre_id']) ? $_GET['genre_id'] : 0 ?>' />
                 <?php
                 }
                 ?>
-                <?php
-                $imgUri = ImageHandler::getImgUri($inputs['genre_image']);
-                ?>
-                <img src='<?php echo $imgUri ?>' class='img-thumbnail' width='250px' alt='genres'>
-                <?php
-                if (isset($errors) && key_exists('genre_image', $errors)) {
-                ?>
-                    <div class="alert alert-danger mt-1" role="alert">
-                        <?php echo $errors['genre_image'] ?>
-                    </div>
-                <?php
-                }
-                ?>
-            </div>
+                <div class="mb-3">
+                    <label for="genre_name" class="form-label">Genre Title</label>
+                    <input type="text" class="form-control" id="genre_name" name="genre_name" value='<?php echo isset($inputs["genre_name"]) ? $inputs["genre_name"] : "" ?>' />
+                    <?php
+                    if (isset($errors) && key_exists('genre_name', $errors)) {
+                    ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?php echo $errors['genre_name'] ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
+                </div>
 
-            <?php
-            if ($isUpdate) {
-            ?>
-                <button type="submit" value="update_genres_submit" name="update_genres_submit" class="btn btn-warning">Update</button>
-            <?php
-            } else {
-            ?>
-                <button type="submit" value="add_genres_submit" name="add_genres_submit" class="btn btn-primary">Submit</button>
-            <?php
-            }
-            ?>
-        </form>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Genre Image</label>
+                    <input class="form-control" type="file" id="genre_image" name="image">
+                    <?php
+                    if ($isUpdate) {
+                    ?>
+                        <input type="hidden" class="form-control" id="up_genre_image" name="up_genre_image" value='<?php echo isset($inputs["genre_image"]) ? $inputs["genre_image"] : "dummy_400_400.png" ?>' />
+                    <?php
+                    }
+                    ?>
+                    <?php
+                    $imgUri = ImageHandler::getImgUri(key_exists('genre_image', $inputs) ? $inputs['genre_image'] : "");
+                    ?>
+                    <img src='<?php echo $imgUri ?>' class='img-thumbnail mt-3' width='250px' alt='genres'>
+                    <?php
+                    if (isset($errors) && key_exists('genre_image', $errors)) {
+                    ?>
+                        <div class="alert alert-danger mt-1" role="alert">
+                            <?php echo $errors['genre_image'] ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
+                </div>
+
+                <?php
+                if ($isUpdate) {
+                ?>
+                    <button type="submit" value="update_genres_submit" name="update_genres_submit" class="btn btn-warning">Update</button>
+                <?php
+                } else {
+                ?>
+                    <button type="submit" value="add_genres_submit" name="add_genres_submit" class="btn btn-orange">Submit</button>
+                <?php
+                }
+                ?>
+            </form>
+        </div>
+
     </div>
 
     <?php

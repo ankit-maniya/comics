@@ -1,73 +1,103 @@
 <!DOCTYPE html>
 <html>
 <?php
-require_once('../database/db_master.php');
+
 require_once('../configs/Path.php');
 include_once './components/header.php';
 require_once('../helpers/ImageHandler.php');
 require_once('../database/db_comics.php');
+include_once('../database/db_master.php');
 
-session_start();
+// Start the session
 
-// Retrieving cart items stored in the session
-$cartItems = $_SESSION['cart'] ?? [];
 
-?>
+$cart = new Cart();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_to_cart'])) {
+    $comicId = $_GET['comic_id'];
+
+    $comic = new Comic();
+    $comic->find($comicId);
+
+    if ($comic->getComicId() > 0) {
+        $cart->addToCart($comic, 1);
+    }
+}
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_quantity'])) {
+    $comicId = $_POST['comic_id'];
+    $newQuantity = $_POST['new_quantity'];
+
+    $cart->updateQuantity($comicId, $newQuantity);
+}
+        ?>
 
 <body>
-    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
-        Comics Store - Cart Page
-    </header>
-
     <?php
     $activeTab = "cart";
     include_once './components/navbar.php';
     ?>
 
+    <header class="bg-light-dark fs-3 text-white py-2 text-center mb-3">
+        Comics Store - Cart Page
+    </header>
+
     <div class="container">
 
+    <h2>Shopping Cart</h2>
         <?php
-    // Initialize or retrieve cart items
-    session_start();
-    if (!isset($_SESSION['cart'])) {
-        $_SESSION['cart'] = []; // Initialize an empty cart
-    }
-
-    
-    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['add_to_cart']) && isset($_GET['comic_id'])) {
-
-        $comicIdToAdd = $_GET['comic_id'];
-
-        
-        array_push($_SESSION['cart'], $comicsDetail);
-    }
-    ?>
-
-    <div class="container mb-5 pb-5">
-        <h1 class="text-center">Cart</h1>
-        <?php if (empty($_SESSION['cart'])) : ?>
-            <p>Your cart is empty.</p>
-        <?php else : ?>
-            <!-- Display cart items -->
-            <?php foreach ($_SESSION['cart'] as $cartItem) : ?>
-                <div class='card my-3'>
+        $cartItems = $cart->getCartItems();
+        if (empty($cartItems)) {
+            echo "<p>Your cart is empty.</p>";
+        } else {
+            foreach ($cartItems as $item) {
+                $comic = $item['item'];
+                $imgUri = ImageHandler::getImgUri($comic->getComicImage());
+                echo "
+                <div class='card mb-2'>
                     <div class='row g-0'>
-                        ]
-                        <div class='col-md-4'>
-                            <img src='<?php echo $cartItem['comic_image']; ?>' class='img-fluid rounded-start' alt='<?php echo $cartItem['comic_title']; ?>'>
+                        <div class='col-md-2'>
+                            <img src='{$imgUri}' class='img-fluid rounded-start' alt='{$comic->getComicTitle()}'>
                         </div>
                         <div class='col-md-8'>
                             <div class='card-body'>
-                                <h5 class='card-title'><?php echo $cartItem['comic_title']; ?></h5>
-                                
+                                <h5 class='card-title'>{$comic->getComicTitle()}</h5>
+                                <h6 class='card-subtitle mb-2 text-body-secondary'>{$comic->getGenreName()}</h6>
+                                <div>
+                                    <label class='fw-bold'>Price:</label>
+                                    <span class='badge text-bg-primary'>\${$comic->getComicPrice()}</span>
+                                </div>
+                                <div>
+                                    <label class='fw-bold'>Quantity:</label>
+                                    <span class='badge'>$item[quantity]</span>
+                                </div>
+                                <form method='post' action='cart.php?comic_id={$_GET['comic_id']}'>
+                                   <input type='hidden' name='comic_id' value='{$comic->getComicId()}'>
+                                   <input type='number' name='new_quantity' value='{$item['quantity']}' min='1'>
+                                   <button type='submit' name='update_quantity' class='btn btn-primary'>Update Quantity</button>
+                                </form>
+                                <form method='post' action='cart.php?remove_from_cart={$comic->getComicId()}'>
+                                    <button type='submit' name='remove_from_cart' class='btn btn-danger'>Remove</button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+                ";
+            }
+
+            echo "
+            <div class='text-end'>
+                <h4>Total Items: {$cart->getTotalItems()}</h4>
+                <h4>Total Price: \${$cart->getTotalPrice()}</h4>
+                <form method='post' action='checkout.php?comic_id={$_GET['comic_id']}'>
+                    <button type='submit' name='chekout' class='btn btn-primary'>Proced to checkout</button>
+                </form>
+            </div>
+            ";
+        }
+        ?>
     </div>
-    </div>
+    
 
     <?php
     include_once './components/footer.php';

@@ -39,14 +39,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 ?>
 
 <body>
-    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
-        Admin All Comics
-    </header>
-
     <?php
     $activeTab = "admin-all-comics";
     require_once('../../components/navbar.php');
     ?>
+    <header class="bg-light-dark fs-3 text-white py-2 text-center mb-3">
+        Admin All Comics
+    </header>
     <div class="container">
         <?php
         if (isset($errors) && key_exists('genre_id', $errors)) {

@@ -22,9 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
-        Initialize Database
-    </header>
+    
     <div class="text-center">
         <?php
 
@@ -36,9 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form method="POST">
             <input type="submit" class="init-button" value="Initialize Database">
         </form>
-    </div>
-    <footer>
-        <div class="text-center">
+    </div>.
+    0
+    <footer class="position-fixed bottom-0 w-100 text-center bg-hevy-dark text-white">
+        <div class="my-1 py-1 font-Pacifico">
             Developed by Duel Ninja - Comics Group - 2023
         </div>
     </footer>

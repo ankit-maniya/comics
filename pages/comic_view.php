@@ -48,15 +48,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 ?>
 
 <body>
-    <header class="bg-hevy-dark fs-3 text-white py-2 text-center">
-        Comics Store - Comics Detail View
-    </header>
 
     <?php
-
     $activeTab = "comics";
     require_once('./components/navbar.php');
     ?>
+
+    <header class="bg-light-dark fs-3 text-white py-2 text-center">
+        Comics Store - Comics Detail View
+    </header>
 
     <?php
     if (empty($comicsDetail['comic_title']) || is_null($comicsDetail['comic_title'])) {
@@ -103,6 +103,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                                 <label class='fw-bold'>Author Email:</label>
                                 <span class='card-text'>{$comicsDetail['comic_author_email']}</span>
                             </div>
+                            <form method='post' action='cart.php?comic_id={$_GET['comic_id']}'>
+                                  <button type='submit' name='add_to_cart' class='btn btn-primary'>Add to Cart</button>
+                            </form>
                             
                             
                            

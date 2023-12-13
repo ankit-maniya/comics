@@ -1,7 +1,7 @@
 <?php
 require('../database/db_user.php');
 $user = new User();
-$user->setUserId($_POST["user_id"]);
+// $user->setUserId($_POST["user_id"]);
 $user->setName($_POST["user_name"]);
 $user->setEmail($_POST["user_email"]);
 $user->setType($_POST["user_type"]);
@@ -16,4 +16,3 @@ if (count($user->getErrors()) > 0) {
     header("Location: ../index.php?success=User successfully registered!");
     exit();
 }
-?>
