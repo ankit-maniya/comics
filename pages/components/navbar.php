@@ -25,24 +25,30 @@ function isActiveTab($currentTab, $expectedTab)
                         Home
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "comics"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/comics.php">
-                        <i class="bi bi-book"></i>
-                        Comics
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "checkout"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/checkout.php">
-                        <i class="bi bi-bag-check"></i>
-                        Checkout
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo isActiveTab($currActiveTab, "cart"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/cart.php">
-                        <i class="bi bi-cart-check"></i>
-                        Cart
-                    </a>
-                </li>
+                <?php
+                if (isset($_SESSION["user_type"]) && $_SESSION["user_type"] == "Customer") {
+                ?>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo isActiveTab($currActiveTab, "comics"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/comics.php">
+                            <i class="bi bi-book"></i>
+                            Comics
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo isActiveTab($currActiveTab, "checkout"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/checkout.php">
+                            <i class="bi bi-bag-check"></i>
+                            Checkout
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo isActiveTab($currActiveTab, "cart"); ?> rounded" aria-current="page" href="<?php echo Path::getDomainUri(); ?>pages/cart.php">
+                            <i class="bi bi-cart-check"></i>
+                            Cart
+                        </a>
+                    </li>
+                <?php
+                }
+                ?>
                 <?php
                 if (!isset($_SESSION["user_type"]) && empty($_SESSION["user_type"])) {
                 ?>
