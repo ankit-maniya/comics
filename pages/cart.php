@@ -71,7 +71,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_quantity'])) {
                 <div class='card mb-2'>
                     <div class='row g-0'>
                         <div class='col-md-2'>
-                            <img src='{$imgUri}' class='img-fluid rounded-start' alt='{$comic->getComicTitle()}'>
+                            <!--<img src='{$imgUri}' class='img-fluid rounded-start' alt='{$comic->getComicTitle()}'>-->
+                            <img src='./admin/images/{$comic->getComicImage()}' class='img-fluid rounded-start' alt='{$comic->getComicTitle()}'>
                         </div>
                         <div class='col-md-8'>
                             <div class='card-body'>
