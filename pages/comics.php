@@ -40,8 +40,7 @@ require_once('./components/header.php');
                             $serial_no++;
                             $design =  ($selectedGenreId == $row['genre_id']) ? "text-bg-warning" : "text-bg-primary";
                             echo "<a href='comics.php?genre_id={$row['genre_id']}' class='text-white fw-bold text-decoration-none'><li class='d-flex align-items-center flex-column'>
-                                <!--<img src='{$imgUri}' alt='{$row['genre_name']}' class='img-height m-3 shadow img'> -->
-                                <img src='./admin/images/{$row['genre_image']}' alt='{$row['genre_name']}' class='img-height m-3 shadow img'>
+                                <img src='{$imgUri}' alt='{$row['genre_name']}' class='img-height m-3 shadow img'>
                                 <span class='badge  {$design}'>{$row['genre_name']}</span>
                             </li></a>";
                         });
