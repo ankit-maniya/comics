@@ -94,25 +94,29 @@ class User
 
     function insert()
     {
-        
         try {
         $sql = new DBMaster();
-        $hashedPassword = password_hash($this->user_password, PASSWORD_DEFAULT);
-        
-        $sql->sqlStatement("INSERT INTO tbl_users (user_name, user_email, user_type, user_password) VALUES (:user_name, :user_email, :user_type, :user_password)")
-            ->params([
-                "user_name" => $this->user_name, 
-                "user_email" => $this->user_email,
-                "user_type" => $this->user_type,
-                "user_password" => $hashedPassword,
-            ])
-            ->execute();
+        if (!$sql->checkDatabaseExists()) {
+            header("Location: ../database/db_init.php");
+            exit();
+        }
+        else{
+            $hashedPassword = password_hash($this->user_password, PASSWORD_DEFAULT);
+            
+            $sql->sqlStatement("INSERT INTO tbl_users (user_name, user_email, user_type, user_password) VALUES (:user_name, :user_email, :user_type, :user_password)")
+                ->params([
+                    "user_name" => $this->user_name, 
+                    "user_email" => $this->user_email,
+                    "user_type" => $this->user_type,
+                    "user_password" => $hashedPassword,
+                ])
+                ->execute();
 
-        $this->user_id = $sql->getConnection()->lastInsertId();
+            $this->user_id = $sql->getConnection()->lastInsertId();
 
-        return $sql->getRowCount();
+            return $sql->getRowCount();
+        }
     } catch (Exception $e) {
-        // Log or print the exception message for debugging
         echo "Error: " . $e->getMessage();
         return false;
     }
@@ -121,6 +125,13 @@ class User
     function authenticateUser()
     {
         $sql = new DBMaster();
+        if (!$sql->checkDatabaseExists()) {
+            header("Location: ../database/db_init.php");
+            exit();
+        }
+        else{
+
+        
         $user_data = $sql->sqlStatement("SELECT * FROM tbl_users WHERE user_email = :user_email")
             ->params(["user_email" => $this->user_email])
             ->execute()
@@ -138,7 +149,7 @@ class User
             }
         } else {
             $this->errors["user_email"] = "User Not Found";
-        }
+        }}
     }
 
     public static function isAdmin()

@@ -251,11 +251,26 @@ class DBMaster
 
         return $this;
     }
+
     function fetchOne()
     {
         return $this->stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    function checkDatabaseExists()
+    {
+        try {
+            $pdo = new PDO("mysql:host=" . self::DATABASE_HOST, self::DATABASE_USER, self::DATABASE_PASSWORD);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            
+            $stmt = $pdo->query("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '" . self::DATABASE_NAME . "'");
+            return ($stmt->fetchColumn() !== false);
+        } catch (PDOException $e) {
+            
+            return false;
+        }
+    }
     // Ankit Maniya
     function forEach(callable $callback, $userDefinedData = null)
     {
