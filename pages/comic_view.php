@@ -7,6 +7,7 @@ require_once('../configs/Path.php');
 require_once('../helpers/ImageHandler.php');
 require_once('./components/header.php');
 require_once('../database/db_comics.php');
+require_once('../database/db_cart.php');
 
 $comicsDetail = [
     "comic_title" => "",

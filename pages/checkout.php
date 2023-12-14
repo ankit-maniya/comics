@@ -11,7 +11,7 @@ require_once('../configs/Path.php');
 include_once './components/header.php';
 require_once('../helpers/ImageHandler.php');
 require_once('../database/db_comics.php');
-
+require_once('../database/db_cart.php');
 
 
 $cart = new Cart();
@@ -21,13 +21,13 @@ if (isset($_GET['comic_id'])) {
     $comic->find($comicId);
 }
 
-// Assuming you have a function to calculate 
+
 $totalPrice = $cart->getTotalPrice();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $db = new DBMaster();
 
-    // Checking if all the form fields are set before accessing them
+    
     $username = isset($_POST['username']) ? $_POST['username'] : '';
     $email = isset($_POST['email']) ? $_POST['email'] : '';
     $mobile = isset($_POST['mobile']) ? $_POST['mobile'] : '';
@@ -70,7 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="card-body">
                     <h5 class="card-title">Comic Name: <?= $comic->getComicTitle() ?></h5>
                     <p>Total Price: <?= $comic->getComicPrice() ?></p>
-                    <!-- Add payment, shipping details, etc. here -->
                     <form method="post" action="pdf.php">
                         <label for="username">Name:</label>
                         <input type="text" id="username" name="username" required><br><br>
