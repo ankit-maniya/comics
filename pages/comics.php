@@ -5,6 +5,7 @@
 require_once('../configs/Path.php');
 require_once('../helpers/ImageHandler.php');
 require_once('../database/db_comics.php');
+require_once('../database/db_cart.php');
 require_once('../database/db_genres.php');
 require_once('./components/header.php');
 ?>

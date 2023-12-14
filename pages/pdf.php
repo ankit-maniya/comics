@@ -87,6 +87,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     // Output PDF as a file
-    $pdf->Output('submitted_form_data.pdf', 'D');
+    $pdf->Output('orderdetails.pdf', 'D');
 }
 ?>

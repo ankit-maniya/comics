@@ -12,7 +12,7 @@ include_once './components/header.php';
 require_once('../helpers/ImageHandler.php');
 require_once('../database/db_comics.php');
 include_once('../database/db_master.php');
-
+require_once('../database/db_cart.php');
 
 $cart = new Cart();
 

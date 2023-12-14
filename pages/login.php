@@ -7,6 +7,7 @@ require_once('../configs/Path.php');
 require_once('../helpers/ImageHandler.php');
 require_once('./components/header.php');
 require_once('../database/db_comics.php');
+require_once('../database/db_cart.php');
 
 $errorMessage = isset($_GET['error']) ? $_GET['error'] : '';
 $successMessage = isset($_GET['success']) ? $_GET['success'] : '';
