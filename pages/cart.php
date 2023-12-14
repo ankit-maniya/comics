@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <?php
-
-
+    
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -41,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_quantity'])) {
 
     $cart->updateQuantity($comicId, $newQuantity);
 }
+
 
 
 

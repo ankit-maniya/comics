@@ -130,26 +130,28 @@ class User
             exit();
         }
         else{
-
-        
-        $user_data = $sql->sqlStatement("SELECT * FROM tbl_users WHERE user_email = :user_email")
-            ->params(["user_email" => $this->user_email])
-            ->execute()
-            ->fetchOne();
-
-        if ($user_data) {
-            if (password_verify($this->user_password, $user_data['user_password'])) {
-                session_regenerate_id();
-                session_start();
-                $_SESSION['user_id'] = $user_data['user_id'];
-                $_SESSION['user_name'] = $user_data['user_name'];
-                $_SESSION['user_type'] = $user_data['user_type'];
+            if (filter_var($this->user_email, FILTER_VALIDATE_EMAIL)) {
+                $user_data = $sql->sqlStatement("SELECT * FROM tbl_users WHERE user_email = :user_email")
+                    ->params(["user_email" => $this->user_email])
+                    ->execute()
+                    ->fetchOne();
+                if ($user_data) {
+                    if (password_verify($this->user_password, $user_data['user_password'])) {
+                        session_regenerate_id();
+                        session_start();
+                        $_SESSION['user_id'] = $user_data['user_id'];
+                        $_SESSION['user_name'] = $user_data['user_name'];
+                        $_SESSION['user_type'] = $user_data['user_type'];
+                    } else {
+                        $this->errors["user_password"] = "User Password Not Matched!";
+                    }
+                } else {
+                    $this->errors["user_email"] = "User Not Found";
+                }
             } else {
-                $this->errors["user_password"] = "User Password Not Matched!";
+                $this->errors["user_email"] = "Invalid Email Format";
             }
-        } else {
-            $this->errors["user_email"] = "User Not Found";
-        }}
+        }
     }
 
     public static function isAdmin()

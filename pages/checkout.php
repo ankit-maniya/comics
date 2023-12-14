@@ -78,12 +78,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="email" name="email">
+                            <input type="text" class="form-control" id="email" name="email">
                             <label for="email">Email:</label>
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="mobile" class="form-control" id="mobile" name="mobile">
+                            <input type="text" class="form-control" id="mobile" name="mobile">
                             <label for="mobile">Mobile:</label>
                         </div>
 

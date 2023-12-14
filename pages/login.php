@@ -48,7 +48,7 @@ $isSignupFormSubmitted = ($showSignupForm && $_SERVER["REQUEST_METHOD"] == "POST
                 ?>
                 <form class="text-dark" method="post" action="authenticate.php">
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="login_email" name="login_email" placeholder="name@example.com">
+                        <input type="text" class="form-control" id="login_email" name="login_email" placeholder="name@example.com">
                         <label for="login_email">Email address</label>
                     </div>
                     <div class="form-floating mb-3">
@@ -91,7 +91,7 @@ $isSignupFormSubmitted = ($showSignupForm && $_SERVER["REQUEST_METHOD"] == "POST
                         <label for="user_name">Username</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="user_email" name="user_email" placeholder="name@example.com">
+                        <input type="text" class="form-control" id="user_email" name="user_email" placeholder="name@example.com">
                         <label for="user_email">Email address</label>
                     </div>
 
