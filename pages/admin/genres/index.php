@@ -80,7 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     <tr>
                         <th scope='row'>{$serial_no}</th>
                         <td>{$row['genre_name']}</td>
-                        <td><img src='{$imgUri}' class='img-thumbnail' width='250px' alt='genres'></td>
+                        <!--<td><img src='{$imgUri}' class='img-thumbnail' width='250px' alt='genres'></td> -->
+                        <td><img src='./admin/images/{$row['genre_image']}' class='img-thumbnail' width='250px' alt='genres'></td>
                         <td>
                         <a class='btn btn-warning' href='add_genres.php?genre_id={$row['genre_id']}' role='button'>Edit</a>
                             <a class='btn btn-danger' href='?genre_id={$row['genre_id']}&&genre_image={$row['genre_image']}' role='button'>Delete</a>
