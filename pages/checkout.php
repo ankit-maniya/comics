@@ -15,14 +15,14 @@ require_once('../database/db_comics.php');
 
 
 $cart = new Cart();
-
-$comicId = $_GET['comic_id'];
-
 $comic = new Comic();
-$comic->find($comicId);
+if (isset($_GET['comic_id'])) {
+    $comicId = $_GET['comic_id'];
+    $comic->find($comicId);
+}
 
 // Assuming you have a function to calculate 
-$totalPrice = $cart->getTotalPrice(); 
+$totalPrice = $cart->getTotalPrice();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $db = new DBMaster();
@@ -64,39 +64,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </header>
 
     <div class="text-center mt-2">
-    <div class="container">
-        <h2>Checkout</h2>
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title">Comic Name: <?= $comic->getComicTitle() ?></h5>
-                <p>Total Price: <?= $comic->getComicPrice() ?></p>
-                <!-- Add payment, shipping details, etc. here -->
-                <form method="post" action="pdf.php">
-        <label for="username">Name:</label>
-        <input type="text" id="username" name="username" required><br><br>
+        <div class="container">
+            <h2>Checkout</h2>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Comic Name: <?= $comic->getComicTitle() ?></h5>
+                    <p>Total Price: <?= $comic->getComicPrice() ?></p>
+                    <!-- Add payment, shipping details, etc. here -->
+                    <form method="post" action="pdf.php">
+                        <label for="username">Name:</label>
+                        <input type="text" id="username" name="username" required><br><br>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required><br><br>
 
-        <label for="mobile">Mobile:</label>
-        <input type="text" id="mobile" name="mobile" required><br><br>
+                        <label for="mobile">Mobile:</label>
+                        <input type="text" id="mobile" name="mobile" required><br><br>
 
-        <label for="address">Address:</label>
-        <textarea id="address" name="address" required></textarea><br><br>
+                        <label for="address">Address:</label>
+                        <textarea id="address" name="address" required></textarea><br><br>
 
-        <label for="pincode">Pincode:</label>
-        <input type="text" id="pincode" name="pincode" required><br><br>
+                        <label for="pincode">Pincode:</label>
+                        <input type="text" id="pincode" name="pincode" required><br><br>
 
-        <label for="province">Province:</label>
-        <input type="text" id="province" name="province" required><br><br>
-        <input type="hidden" name="comic_title" value="<?= $comic->getComicTitle() ?>">
-        <input type="hidden" name="comic_price" value="<?= $comic->getComicPrice() ?>">
+                        <label for="province">Province:</label>
+                        <input type="text" id="province" name="province" required><br><br>
+                        <input type="hidden" name="comic_title" value="<?= $comic->getComicTitle() ?>">
+                        <input type="hidden" name="comic_price" value="<?= $comic->getComicPrice() ?>">
 
-        <input type="submit" value="Submit">
-    </form>
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
     <?php
