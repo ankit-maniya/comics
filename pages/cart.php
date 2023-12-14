@@ -30,6 +30,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_quantity'])) {
     $comicId = $_POST['comic_id'];
     $newQuantity = $_POST['new_quantity'];
 
+    $comicId = $_GET['comic_id'];
+
+    $comic = new Comic();
+    $comic->find($comicId);
+
+    if ($comic->getComicId() > 0) {
+        $cart->addToCart($comic, 1);
+    }
+
     $cart->updateQuantity($comicId, $newQuantity);
 }
 

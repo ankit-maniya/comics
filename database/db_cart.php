@@ -30,7 +30,6 @@ class Cart
                 'quantity' => $quantity,
             ];
         }
-        
     }
 
     public function removeFromCart($comicId)
@@ -41,26 +40,26 @@ class Cart
     }
 
     public function updateQuantity($comicId, $quantity)
-{
-    if (isset($this->cartItems[$comicId])) {
-        $this->cartItems[$comicId]['quantity'] = $quantity;
-        $this->calculateTotal();
-    }
-}
-
-public function calculateTotal()
-{
-    $totalItems = 0;
-    $totalPrice = 0;
-
-    foreach ($this->cartItems as $item) {
-        $totalItems += $item['quantity'];
-        $totalPrice += $item['item']->getComicPrice() * $item['quantity'];
+    {
+        if (isset($this->cartItems[$comicId])) {
+            $this->cartItems[$comicId]['quantity'] = $quantity;
+            $this->calculateTotal();
+        }
     }
 
-    $this->totalItems = $totalItems;
-    $this->totalPrice = $totalPrice;
-}
+    public function calculateTotal()
+    {
+        $totalItems = 0;
+        $totalPrice = 0;
+
+        foreach ($this->cartItems as $item) {
+            $totalItems += $item['quantity'];
+            $totalPrice += $item['item']->getComicPrice() * $item['quantity'];
+        }
+
+        $this->totalItems = $totalItems;
+        $this->totalPrice = $totalPrice;
+    }
 
     public function getCartItems()
     {
@@ -85,9 +84,8 @@ public function calculateTotal()
         return $totalPrice;
     }
 
-    public function clearCart() {
-        $this->cartItems = []; 
+    public function clearCart()
+    {
+        $this->cartItems = [];
     }
 }
-
-?>

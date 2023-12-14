@@ -27,7 +27,7 @@ $totalPrice = $cart->getTotalPrice();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $db = new DBMaster();
 
-    
+
     $username = isset($_POST['username']) ? $_POST['username'] : '';
     $email = isset($_POST['email']) ? $_POST['email'] : '';
     $mobile = isset($_POST['mobile']) ? $_POST['mobile'] : '';
@@ -69,29 +69,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Comic Name: <?= $comic->getComicTitle() ?></h5>
-                    <p>Total Price: <?= $comic->getComicPrice() ?></p>
-                    <form method="post" action="pdf.php">
-                        <label for="username">Name:</label>
-                        <input type="text" id="username" name="username" required><br><br>
+                    <p>Product Orignal Price: <?= $comic->getComicPrice() ?></p>
 
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required><br><br>
+                    <form class="text-dark" method="post" action="pdf.php">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="username" name="username">
+                            <label for="username">Name:</label>
+                        </div>
 
-                        <label for="mobile">Mobile:</label>
-                        <input type="text" id="mobile" name="mobile" required><br><br>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="email" name="email">
+                            <label for="email">Email:</label>
+                        </div>
 
-                        <label for="address">Address:</label>
-                        <textarea id="address" name="address" required></textarea><br><br>
+                        <div class="form-floating mb-3">
+                            <input type="mobile" class="form-control" id="mobile" name="mobile">
+                            <label for="mobile">Mobile:</label>
+                        </div>
 
-                        <label for="pincode">Pincode:</label>
-                        <input type="text" id="pincode" name="pincode" required><br><br>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="address" name="address">
+                            <label for="address">Address:</label>
+                        </div>
 
-                        <label for="province">Province:</label>
-                        <input type="text" id="province" name="province" required><br><br>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="pincode" name="pincode">
+                            <label for="pincode">Pincode:</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="province" name="province">
+                            <label for="province">Province:</label>
+                        </div>
+
                         <input type="hidden" name="comic_title" value="<?= $comic->getComicTitle() ?>">
                         <input type="hidden" name="comic_price" value="<?= $comic->getComicPrice() ?>">
 
-                        <input type="submit" value="Submit">
+                        <div class="d-grid gap-2 col-12 mx-auto">
+                            <button class="btn btn-orange btn-lg" type="submit" value="Generate Pdf">Generate Pdf</button>
+                        </div>
                     </form>
                 </div>
             </div>
