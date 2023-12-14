@@ -75,8 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     echo "
                 
                     <div class='col-md-4'>
-                        <!-- <img src='{$imgUri}' class='img-fluid rounded-start' alt='{$comicsDetail['comic_title']}'> -->
-                        <img src='./admin/images/{$comicsDetail['comic_image']}' class='img-fluid rounded-start' alt='{$comicsDetail['comic_title']}'>
+                        <img src='{$imgUri}' class='img-fluid rounded-start' alt='{$comicsDetail['comic_title']}'>
                    
                     </div>
                     <div class='col-md-8'>

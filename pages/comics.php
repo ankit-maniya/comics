@@ -76,8 +76,7 @@ require_once('./components/header.php');
 
                             echo "<div class='col-sm-4'>
                             <div class='card'>
-                                <!--<img src='{$imgUri}' class='card-img-top' alt='{$row['comic_title']}'> -->
-                                <img src='./admin/images/{$row['comic_image']}' class='card-img-top' alt='{$row['comic_title']}'>
+                                <img src='{$imgUri}' class='card-img-top' alt='{$row['comic_title']}'>
                                 <div class='card-body'>
                                     <h5 class='card-title'>{$row['comic_title']}</h5>
                                     <h6 class='card-subtitle mb-2 text-body-secondary'>{$row['genre_name']}</h6>

@@ -86,8 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                         <th scope='row'>{$serial_no}</th>
                         <td>{$row['comic_title']}</td>
                         <td>{$row['comic_price']}</td>
-                        <!--<td><img src='{$imgUri}' class='img-thumbnail' width='250px' alt='comics'></td> -->
-                        <td><img src='./admin/images/{$row['comic_image']}' class='img-thumbnail' width='250px' alt='comics'></td>
+                        <td><img src='{$imgUri}' class='img-thumbnail' width='250px' alt='comics'></td>
                         <td>{$row['comic_description']}</td>
                         <td>{$row['comic_stock_quantity']}</td>
                         <td>{$row['genre_name']}</td>
