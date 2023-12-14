@@ -68,13 +68,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         <div class="container mb-5 pb-5">
             <h1 class="text-center"><?php echo $comicsDetail['comic_title'] ?></h1>
             <div class='card my-3'>
+                
                 <div class='row g-0'>
                     <?php
                     $imgUri = ImageHandler::getImgUri($comicsDetail['comic_image']);
                     echo "
                 
                     <div class='col-md-4'>
-                        <img src='{$imgUri}' class='img-fluid rounded-start' alt='{$comicsDetail['comic_title']}'>
+                        <!-- <img src='{$imgUri}' class='img-fluid rounded-start' alt='{$comicsDetail['comic_title']}'> -->
+                        <img src='./admin/images/{$comicsDetail['comic_image']}' class='img-fluid rounded-start' alt='{$comicsDetail['comic_title']}'>
+                   
                     </div>
                     <div class='col-md-8'>
                         <div class='card-body'>

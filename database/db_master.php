@@ -39,6 +39,8 @@ class DBMaster
 
             // generate Order Items table
             self::generateOrderItemsTable($pdo);
+            self::insertGenereTableData($pdo);
+            self::insertComicsTableData($pdo);
         } catch (ErrorException $msg) {
             echo "Initialization for database is failed :: " . $msg->getMessage();
         }
@@ -153,7 +155,35 @@ class DBMaster
             FOREIGN KEY (`comic_id`) REFERENCES tbl_comics(`comic_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
     }
-
+    function insertGenereTableData($pdo)
+    {
+        $pdo->query("INSERT INTO tbl_genres (genre_name, genre_image) VALUES
+        ('Action', 'action_image.jpg'),
+        ('Adventure', 'adventure_image.jpg'),
+        ('Fantasy', 'fantasy_image.jpg'),
+        ('Sci-Fi', 'sci_fi_image.jpg'),
+        ('Mystery', 'mystery_image.jpg');");
+    }
+    function insertComicsTableData($pdo)
+    {
+        $pdo->query("INSERT INTO tbl_comics (comic_title, comic_price, comic_image, comic_description, comic_stock_quantity, genre_id, comic_author_name, comic_author_email) VALUES
+       
+        ('The Heroic Quest', 12.99, 'heroic_quest.jpg', 'Join our hero in a thrilling action-packed journey.', 150, 1, 'John Smith', 'john.smith@email.com'),
+        ('City Shadows', 9.99, 'city_shadows.jpg', 'A tale of vigilantes fighting crime in the city at night.', 120, 1, 'Jane Doe', 'jane.doe@email.com'),
+        ('Battlefield Glory', 14.99, 'battlefield_glory.jpg', 'Warriors clash in epic battles for honor and glory.', 100, 1, 'Chris Johnson', 'chris.johnson@email.com'),
+        ('Lost Kingdom', 11.99, 'lost_kingdom.jpg', 'Embark on a quest to discover a hidden, ancient kingdom.', 130, 2, 'Amanda White', 'amanda.white@email.com'),
+        ('The Explorer\'s Legacy', 10.99, 'explorers_legacy.jpg', 'Discover uncharted territories and face the challenges of the wild.', 110, 2, 'Robert Turner', 'robert.turner@email.com'),
+        ('Jungle Expedition', 13.99, 'jungle_expedition.jpg', 'Navigate through the dense jungle and uncover its secrets.', 95, 2, 'Emily Davis', 'emily.davis@email.com'),
+        ('Realm of Magic', 15.99, 'realm_of_magic.jpg', 'Magic and mythical creatures abound in a world of fantasy.', 160, 3, 'Daniel Wilson', 'daniel.wilson@email.com'),
+        ('Dragon Riders', 12.99, 'dragon_riders.jpg', 'A group of warriors on dragonback embarks on a quest.', 125, 3, 'Sophie Turner', 'sophie.turner@email.com'),
+        ('The Enchanted Crown', 14.99, 'enchanted_crown.jpg', 'A quest to retrieve a magical crown and save the kingdom.', 105, 3, 'Michael Brown', 'michael.brown@email.com'),
+        ('Galactic Odyssey', 16.99, 'galactic_odyssey.jpg', 'Explore the vastness of space in an intergalactic adventure.', 170, 4, 'Olivia Harris', 'olivia.harris@email.com'),
+        ('Cybernetic Revolution', 13.99, 'cybernetic_revolution.jpg', 'In a future world, humanity embraces cybernetic enhancements.', 140, 4, 'Ethan Turner', 'ethan.turner@email.com'),
+        ('Alien Encounter', 17.99, 'alien_encounter.jpg', 'The human race faces an unexpected and mysterious extraterrestrial threat.', 115, 4, 'Mia Johnson', 'mia.johnson@email.com'),
+        ('Whodunit Chronicles', 11.99, 'whodunit_chronicles.jpg', 'Solve complex mysteries in a series of intriguing cases.', 135, 5, 'William Turner', 'william.turner@email.com'),
+        ('Conspiracy Unveiled', 10.99, 'conspiracy_unveiled.jpg', 'Uncover hidden conspiracies that threaten the world.', 125, 5, 'Emma White', 'emma.white@email.com'),
+        ('The Detective\'s Dilemma', 12.99, 'detectives_dilemma.jpg', 'A detective navigates through personal and professional challenges.', 110, 5, 'Christopher Davis', 'christopher.davis@email.com');");
+    }
     function bindAndExecuteDatabaseQuery($pdo, $sql_statement)
     {
         $sql_statement = $pdo->prepare($sql_statement);

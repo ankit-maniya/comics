@@ -40,7 +40,8 @@ require_once('./components/header.php');
                             $serial_no++;
                             $design =  ($selectedGenreId == $row['genre_id']) ? "text-bg-warning" : "text-bg-primary";
                             echo "<a href='comics.php?genre_id={$row['genre_id']}' class='text-white fw-bold text-decoration-none'><li class='d-flex align-items-center flex-column'>
-                                <img src='{$imgUri}' alt='{$row['genre_name']}' class='img-height m-3 shadow img'>
+                                <!--<img src='{$imgUri}' alt='{$row['genre_name']}' class='img-height m-3 shadow img'> -->
+                                <img src='./admin/images/{$row['genre_image']}' alt='{$row['genre_name']}' class='img-height m-3 shadow img'>
                                 <span class='badge  {$design}'>{$row['genre_name']}</span>
                             </li></a>";
                         });
@@ -75,7 +76,8 @@ require_once('./components/header.php');
 
                             echo "<div class='col-sm-4'>
                             <div class='card'>
-                                <img src='{$imgUri}' class='card-img-top' alt='{$row['comic_title']}'>
+                                <!--<img src='{$imgUri}' class='card-img-top' alt='{$row['comic_title']}'> -->
+                                <img src='./admin/images/{$row['comic_image']}' class='card-img-top' alt='{$row['comic_title']}'>
                                 <div class='card-body'>
                                     <h5 class='card-title'>{$row['comic_title']}</h5>
                                     <h6 class='card-subtitle mb-2 text-body-secondary'>{$row['genre_name']}</h6>
