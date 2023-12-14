@@ -86,7 +86,7 @@ function isActiveTab($currentTab, $expectedTab)
                 ?>
                     <li class="nav-item dropdown dropstart">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <?php echo $_SESSION["user_username"]; ?>
+                            <?php echo $_SESSION["user_name"]; ?>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="<?php echo Path::getDomainUri(); ?>pages/logout.php">Logout</a></li>
