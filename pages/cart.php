@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_quantity'])) {
 
 
 
- ?>
+?>
 
 <body>
     <?php
@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_quantity'])) {
 
     <div class="container">
 
-    <h2>Shopping Cart</h2>
+        <h2>Shopping Cart</h2>
         <?php
         $cartItems = $cart->getCartItems();
         if (empty($cartItems)) {
@@ -87,11 +87,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_quantity'])) {
                                 </div>
                                 <form method='post' action='cart.php?comic_id={$_GET['comic_id']}'>
                                    <input type='hidden' name='comic_id' value='{$comic->getComicId()}'>
-                                   <input type='number' name='new_quantity' value='{$item['quantity']}' min='1'>
-                                   <button type='submit' name='update_quantity' class='btn btn-primary'>Update Quantity</button>
+                                   <input type='number' name='new_quantity' class='form-control' value='{$item['quantity']}' min='1'>
+                                   <button type='submit' name='update_quantity' class='btn btn-primary  mt-1'>Update Quantity</button>
                                 </form>
                                 <form method='post' action='cart.php?remove_from_cart={$comic->getComicId()}'>
-                                    <button type='submit' name='remove_from_cart' class='btn btn-danger'>Remove</button>
+                                    <button type='submit' name='remove_from_cart' class='btn btn-danger  mt-1'>Remove</button>
                                 </form>
                             </div>
                         </div>
@@ -112,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_quantity'])) {
         }
         ?>
     </div>
-    
+
 
     <?php
     include_once './components/footer.php';

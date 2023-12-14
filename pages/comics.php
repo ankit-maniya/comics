@@ -26,7 +26,7 @@ require_once('./components/header.php');
                     <ul class="list-group list-group-horizontal flex-nowrap">
                         <a href='comics.php' class='text-white fw-bold text-decoration-none'>
                             <li class='d-flex align-items-center flex-column'>
-                                <img src='https://dummyimage.com/512/ffffff/000000&text=ALL' alt='all' class='img-height m-3 shadow'>
+                                <img src='https://dummyimage.com/512/ffffff/000000&text=ALL' alt='all' class='img-height m-3 shadow img'>
                                 <span class='badge text-bg-danger'>All</span>
                             </li>
                         </a>
@@ -40,7 +40,7 @@ require_once('./components/header.php');
                             $serial_no++;
                             $design =  ($selectedGenreId == $row['genre_id']) ? "text-bg-warning" : "text-bg-primary";
                             echo "<a href='comics.php?genre_id={$row['genre_id']}' class='text-white fw-bold text-decoration-none'><li class='d-flex align-items-center flex-column'>
-                                <img src='{$imgUri}' alt='{$row['genre_name']}' class='img-height m-3 shadow'>
+                                <img src='{$imgUri}' alt='{$row['genre_name']}' class='img-height m-3 shadow img'>
                                 <span class='badge  {$design}'>{$row['genre_name']}</span>
                             </li></a>";
                         });

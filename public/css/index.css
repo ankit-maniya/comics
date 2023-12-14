@@ -152,3 +152,12 @@ table td strong {
   border-radius: 50%;
   object-fit: cover;
 }
+
+
+.card, .img {
+  transition: transform 0.3s ease;
+}
+
+.card:hover, .img:hover {
+  transform: scale(0.9);
+}
