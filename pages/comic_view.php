@@ -3,8 +3,6 @@
 <html>
 <?php
 
-
-
 require_once('../configs/Path.php');
 require_once('../helpers/ImageHandler.php');
 require_once('./components/header.php');
@@ -45,6 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         }
     }
 }
+
+
 ?>
 
 <body>
@@ -106,10 +106,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                             <form method='post' action='cart.php?comic_id={$_GET['comic_id']}'>
                                   <button type='submit' name='add_to_cart' class='btn btn-primary'>Add to Cart</button>
                             </form>
-                            
-                            
-                           
-
 
                         </div>
                     </div>

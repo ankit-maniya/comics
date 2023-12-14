@@ -252,6 +252,9 @@ class Comic
     }
 }
 
+
+// zeel patel
+//haniben patel
 class Cart
 {
     protected $cartItems = [];
@@ -335,23 +338,12 @@ public function calculateTotal()
         }
         return $totalPrice;
     }
+
+    public function clearCart() {
+        // Implement logic to clear the cart items
+        // This could involve deleting rows from your cart table or resetting the cart array, depending on your implementation
+        // For example, if using an array to store cart items:
+        $this->cartItems = []; // Assuming $cartItems is the array storing cart items
+    }
 }
 
-function generateUserTable($pdo)
-{
-    $pdo->query("CREATE TABLE `tbl_users` (
-        `user_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-        `user_name` VARCHAR(100) NOT NULL,
-        `user_type` VARCHAR(100) DEFAULT 'customer',
-        `user_username` VARCHAR(100) NOT NULL,
-        `user_password` VARCHAR(255) NOT NULL,
-        `user_email` VARCHAR(100) NOT NULL,
-        `user_mobile` VARCHAR(15) NOT NULL,
-        `user_address` VARCHAR(200) NOT NULL,
-        `user_pincode` VARCHAR(7) NOT NULL,
-        `user_province` VARCHAR(2) NOT NULL,
-        `user_created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        `user_updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        PRIMARY KEY (`user_id`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-}

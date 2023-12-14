@@ -66,15 +66,15 @@ class DBMaster
     {
         $pdo->query("CREATE TABLE `tbl_users` (
             `user_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-            `user_name` VARCHAR(100) NOT NULL,
+            `user_name` VARCHAR(100),
             `user_type` VARCHAR(100) DEFAULT 'customer',
-            `user_username` VARCHAR(100) NOT NULL,
-            `user_password` VARCHAR(255) NOT NULL,
-            `user_email` VARCHAR(100) NOT NULL,
-            `user_mobile` VARCHAR(15) NOT NULL,
-            `user_address` VARCHAR(200) NOT NULL,
-            `user_pincode` VARCHAR(7) NOT NULL,
-            `user_province` VARCHAR(2) NOT NULL,
+            `user_username` VARCHAR(100),
+            `user_password` VARCHAR(255),
+            `user_email` VARCHAR(100),
+            `user_mobile` VARCHAR(15),
+            `user_address` VARCHAR(200),
+            `user_pincode` VARCHAR(7),
+            `user_province` VARCHAR(2),
             `user_created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             `user_updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`user_id`)

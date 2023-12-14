@@ -2,14 +2,16 @@
 <html>
 <?php
 
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once('../configs/Path.php');
 include_once './components/header.php';
 require_once('../helpers/ImageHandler.php');
 require_once('../database/db_comics.php');
 include_once('../database/db_master.php');
-
-// Start the session
-
 
 
 $cart = new Cart();
@@ -30,7 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_quantity'])) {
 
     $cart->updateQuantity($comicId, $newQuantity);
 }
-        ?>
+
+
+
+ ?>
 
 <body>
     <?php
@@ -69,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_quantity'])) {
                                 </div>
                                 <div>
                                     <label class='fw-bold'>Quantity:</label>
-                                    <span class='badge'>$item[quantity]</span>
+                                    <span class='badge text-bg-primary'>$item[quantity]</span>
                                 </div>
                                 <form method='post' action='cart.php?comic_id={$_GET['comic_id']}'>
                                    <input type='hidden' name='comic_id' value='{$comic->getComicId()}'>

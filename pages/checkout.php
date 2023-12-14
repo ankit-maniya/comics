@@ -15,6 +15,7 @@ require_once('../database/db_comics.php');
 
 
 $cart = new Cart();
+
 $comicId = $_GET['comic_id'];
 
 $comic = new Comic();
@@ -22,6 +23,34 @@ $comic->find($comicId);
 
 // Assuming you have a function to calculate 
 $totalPrice = $cart->getTotalPrice(); 
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $db = new DBMaster();
+
+    // Checking if all the form fields are set before accessing them
+    $username = isset($_POST['username']) ? $_POST['username'] : '';
+    $email = isset($_POST['email']) ? $_POST['email'] : '';
+    $mobile = isset($_POST['mobile']) ? $_POST['mobile'] : '';
+    $address = isset($_POST['address']) ? $_POST['address'] : '';
+    $pincode = isset($_POST['pincode']) ? $_POST['pincode'] : '';
+    $province = isset($_POST['province']) ? $_POST['province'] : '';
+
+    // Inserting data into the database
+    $sql = "INSERT INTO tbl_users (user_username, user_email, user_mobile, user_address, user_pincode, user_province) 
+            VALUES (:username, :email, :mobile, :address, :pincode, :province)";
+
+    $params = [
+        'username' => $username,
+        'email' => $email,
+        'mobile' => $mobile,
+        'address' => $address,
+        'pincode' => $pincode,
+        'province' => $province
+    ];
+
+    $db->sqlStatement($sql)->params($params)->execute();
+}
+
 ?>
 
 <body>
@@ -42,10 +71,29 @@ $totalPrice = $cart->getTotalPrice();
                 <h5 class="card-title">Comic Name: <?= $comic->getComicTitle() ?></h5>
                 <p>Total Price: <?= $comic->getComicPrice() ?></p>
                 <!-- Add payment, shipping details, etc. here -->
-                <form method="post" action="process_payment.php">
-                    <!-- Payment and shipping form -->
-                    <button type="submit" class="btn btn-primary">Confirm Payment</button>
-                </form>
+                <form method="post" action="pdf.php">
+        <label for="username">Name:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="mobile">Mobile:</label>
+        <input type="text" id="mobile" name="mobile" required><br><br>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" required></textarea><br><br>
+
+        <label for="pincode">Pincode:</label>
+        <input type="text" id="pincode" name="pincode" required><br><br>
+
+        <label for="province">Province:</label>
+        <input type="text" id="province" name="province" required><br><br>
+        <input type="hidden" name="comic_title" value="<?= $comic->getComicTitle() ?>">
+        <input type="hidden" name="comic_price" value="<?= $comic->getComicPrice() ?>">
+
+        <input type="submit" value="Submit">
+    </form>
             </div>
         </div>
     </div>
